@@ -1,85 +1,103 @@
 import Link from "next/link";
-import { ArrowRight, GraduationCap, MonitorPlay, Award } from "lucide-react";
+import Image from "next/image";
+import { MonitorPlay, School, GraduationCap, Play, Award } from "lucide-react";
 
 export function Hero() {
   return (
-    <section className="relative bg-navy text-white overflow-hidden">
-      <div className="container-site grid lg:grid-cols-5 min-h-[600px] lg:min-h-[680px]">
-        {/* Colonne gauche (40%) */}
-        <div className="lg:col-span-2 flex flex-col justify-center py-16 lg:py-24 pr-0 lg:pr-10">
-          <span className="badge-gold inline-flex items-center gap-2 self-start rounded-full bg-gold text-navy text-xs font-bold uppercase tracking-wider px-4 py-1.5 mb-6">
-            <Award className="h-4 w-4" />
-            N°1 dans la formation des enseignants au Bénin
-          </span>
+    <section className="relative bg-navy text-white overflow-hidden min-h-[580px] lg:min-h-[660px]">
+      {/* Image de l'école en arrière-plan côté droit */}
+      <div className="absolute inset-0 lg:left-[42%]">
+        <Image
+          src="/ecole-hero.jpg"
+          alt="Campus EFES SAPIENTIA"
+          fill
+          className="object-cover object-center"
+          priority
+          sizes="(max-width: 1024px) 100vw, 60vw"
+        />
+        {/* Gradient overlay pour lisibilité */}
+        <div
+          className="absolute inset-0 bg-gradient-to-r from-navy via-navy/80 to-navy/30 lg:via-navy/60 lg:to-transparent"
+          aria-hidden
+        />
+        <div
+          className="absolute inset-0 bg-navy/50 lg:hidden"
+          aria-hidden
+        />
+      </div>
 
-          <h1 className="font-display text-4xl lg:text-5xl xl:text-6xl font-bold leading-[1.05] text-balance">
-            Formez les <span className="text-gold">enseignants</span> de demain au cœur du <span className="text-gold">Bénin</span>.
+      <div className="container-site relative z-10 grid lg:grid-cols-5 min-h-[580px] lg:min-h-[660px]">
+        {/* Colonne gauche (42%) */}
+        <div className="lg:col-span-2 flex flex-col justify-center py-16 lg:py-20 pr-0 lg:pr-8">
+          {/* Titre principal */}
+          <h1 className="font-display text-4xl lg:text-5xl xl:text-[3.25rem] font-bold leading-[1.05] text-balance">
+            Former aujourd&apos;hui
+            <br />
+            les éducateurs de{" "}
+            <span className="text-gold">demain</span>
           </h1>
 
-          <p className="mt-6 text-lg text-white/80 leading-relaxed max-w-md">
-            L'EFES « SAPIENTIA » propose des formations en présentiel et à distance, sur 4 campus,
-            pour une pédagogie innovante et accessible à tous.
+          <p className="mt-5 text-base text-white/80 leading-relaxed max-w-sm">
+            EFES « SAPIENTIA » est une université privée spécialisée dans la
+            formation des enseignants compétents, éthiques et innovants.
           </p>
 
+          {/* Badge N°1 */}
+          <div className="mt-6 flex items-center gap-3">
+            <div className="flex flex-col items-center justify-center rounded-full bg-gold text-navy font-bold w-16 h-16 shrink-0 text-center leading-tight shadow-premium">
+              <span className="text-xs font-extrabold">N°1</span>
+              <Award className="h-4 w-4 mt-0.5" />
+            </div>
+            <p className="text-sm text-white/80 leading-snug max-w-[160px]">
+              dans la formation<br />des enseignants<br />au Bénin
+            </p>
+          </div>
+
           {/* Cartes flottantes formation */}
-          <div className="mt-8 grid grid-cols-2 gap-3 max-w-md">
+          <div className="mt-8 grid grid-cols-2 gap-3 max-w-sm">
             <Link
               href="/formation-distance"
-              className="group rounded-2xl bg-white/10 hover:bg-white/15 border border-white/10 p-4 transition-colors"
+              className="group rounded-2xl bg-white/10 hover:bg-white/20 border border-white/15 p-4 transition-all duration-200 hover:-translate-y-0.5"
             >
               <MonitorPlay className="h-6 w-6 text-gold mb-2" />
-              <p className="text-sm font-semibold">Formation à distance</p>
-              <p className="text-xs text-white/70">E-learning</p>
+              <p className="text-sm font-bold leading-tight">Formation<br />à distance</p>
+              <p className="text-xs text-white/65 mt-1 leading-snug">
+                Apprenez où que vous soyez ! Accédez à nos cours en ligne et progressez à votre rythme avec l&apos;accompagnement de nos enseignants.
+              </p>
             </Link>
             <Link
               href="/formation-presentiel"
-              className="group rounded-2xl bg-white/10 hover:bg-white/15 border border-white/10 p-4 transition-colors"
+              className="group rounded-2xl bg-white/10 hover:bg-white/20 border border-white/15 p-4 transition-all duration-200 hover:-translate-y-0.5"
             >
-              <GraduationCap className="h-6 w-6 text-gold mb-2" />
-              <p className="text-sm font-semibold">Formation en présentiel</p>
-              <p className="text-xs text-white/70">Sur campus</p>
+              <School className="h-6 w-6 text-gold mb-2" />
+              <p className="text-sm font-bold leading-tight">Formation<br />en présentiel</p>
+              <p className="text-xs text-white/65 mt-1 leading-snug">
+                Vivez une expérience d&apos;apprentissage riche sur nos campus modernes avec des enseignants et des équipements de qualité.
+              </p>
             </Link>
           </div>
 
           {/* CTA */}
-          <div className="mt-8 flex flex-wrap gap-3">
-            <Link
-              href="/inscription"
-              className="inline-flex items-center gap-2 h-13 px-8 rounded-full bg-gold text-navy font-semibold hover:bg-gold-600 hover:-translate-y-0.5 shadow-premium transition-all duration-300"
-            >
-              S'inscrire
-              <ArrowRight className="h-5 w-5" />
-            </Link>
+          <div className="mt-7 flex flex-wrap gap-3">
             <Link
               href="/formations"
-              className="inline-flex items-center gap-2 h-13 px-8 rounded-full bg-navy-700 text-white font-semibold hover:bg-navy-600 transition-colors"
+              className="inline-flex items-center gap-2 h-12 px-7 rounded-full bg-gold text-navy font-semibold text-sm hover:bg-gold-600 hover:-translate-y-0.5 shadow-premium transition-all duration-300"
             >
-              Nos formations
+              <GraduationCap className="h-4 w-4" />
+              Découvrir nos formations
+            </Link>
+            <Link
+              href="/galerie"
+              className="inline-flex items-center gap-2 h-12 px-7 rounded-full bg-white/10 border border-white/20 text-white font-semibold text-sm hover:bg-white/20 transition-all duration-200"
+            >
+              <Play className="h-4 w-4" />
+              Voir la vidéo
             </Link>
           </div>
         </div>
 
-        {/* Colonne droite (60%) — photo */}
-        <div className="lg:col-span-3 relative min-h-[320px] lg:min-h-full -mx-6 lg:mx-0">
-          <div
-            className="absolute inset-0 bg-gradient-to-br from-navy via-navy-700 to-gold/30"
-            aria-hidden
-          />
-          <div className="relative h-full min-h-[320px] lg:min-h-full flex items-center justify-center p-10 lg:p-16">
-            <div className="relative w-full max-w-lg aspect-[4/3] rounded-3xl bg-white/10 border border-white/20 backdrop-blur-sm flex items-center justify-center overflow-hidden">
-              <div className="text-center px-8">
-                <GraduationCap className="h-16 w-16 text-gold mx-auto mb-4" />
-                <p className="font-display text-2xl font-bold">Campus EFES « SAPIENTIA »</p>
-                <p className="text-white/70 mt-2">
-                  Étudiants en uniforme, salles modernes, enseignants qualifiés.
-                </p>
-              </div>
-              {/* motif décoratif */}
-              <div className="absolute -bottom-10 -right-10 h-40 w-40 rounded-full bg-gold/20 blur-xl" aria-hidden />
-              <div className="absolute -top-10 -left-10 h-32 w-32 rounded-full bg-white/10 blur-xl" aria-hidden />
-            </div>
-          </div>
-        </div>
+        {/* Colonne droite vide — la photo occupe cet espace en background */}
+        <div className="hidden lg:block lg:col-span-3" aria-hidden />
       </div>
     </section>
   );
