@@ -10,12 +10,13 @@ import {
   Inbox,
 } from "lucide-react";
 import { requireAdmin } from "@/lib/auth-admin";
+import { listFormations, listActualites } from "@/lib/data-admin";
 import {
-  dashboardCounts,
-  listDemandesInscription,
-  listContactMessages,
-  listFormations,
-} from "@/lib/data-admin";
+  listInscriptions,
+  listDevis,
+  listMessages,
+  listNewsletter,
+} from "@/lib/data-admin-inbox";
 import { PageHeader } from "@/components/blocks/admin/page-header";
 import { StatCard } from "@/components/blocks/admin/stat-card";
 import { EmptyState } from "@/components/blocks/admin/empty-state";
@@ -25,18 +26,38 @@ export const dynamic = "force-dynamic";
 
 /**
  * Tableau de bord admin : compteurs + dernières demandes (inscriptions &
- * messages). Les pages de modules CRUD (formations/actualites/…) sont créées
- * par le sibling admin-content-crud ; les liens pointent vers ces routes qui
- * n'existeront qu'après merge — c'est intentionnel.
+ * messages). Les lectures passent par la DAL admin (service role) côté serveur.
  */
 export default async function AdminDashboard() {
-  const admin = await requireAdmin("/admin");
-  const [counts, inscriptions, messages, formations] = await Promise.all([
-    dashboardCounts(),
-    listDemandesInscription(),
-    listContactMessages(),
+  const admin = await requireAdmin();
+
+  const [
+    formationsRes,
+    actualitesRes,
+    inscriptions,
+    devis,
+    messages,
+    newsletter,
+  ] = await Promise.all([
     listFormations(),
+    listActualites(),
+    listInscriptions(),
+    listDevis(),
+    listMessages(),
+    listNewsletter(),
   ]);
+
+  const formations = formationsRes.data ?? [];
+  const actualites = actualitesRes.data ?? [];
+
+  const counts = {
+    inscriptionsEnAttente: inscriptions.filter((d) => d.statut === "EN_ATTENTE")
+      .length,
+    devisEnAttente: devis.filter((d) => d.statut === "EN_ATTENTE").length,
+    messagesNonLus: messages.filter((m) => !m.lu).length,
+    abonnesActifs: newsletter.filter((n) => !n.desinscrit).length,
+    formationsPubliees: formations.length,
+  };
 
   const recentInscriptions = inscriptions.slice(0, 3);
   const recentMessages = messages.slice(0, 3);
@@ -45,7 +66,7 @@ export default async function AdminDashboard() {
     <div className="space-y-8">
       <PageHeader
         title="Tableau de bord"
-        description={`Bienvenue, ${admin.profile.name?.trim() || "Administrateur"}. Vue d'ensemble du back-office.`}
+        description={`Bienvenue, ${admin.name?.trim() || "Administrateur"}. Vue d'ensemble du back-office.`}
       />
 
       {/* Stat cards */}
@@ -75,16 +96,16 @@ export default async function AdminDashboard() {
           hint="Abonnés actifs (non désinscrits)"
         />
         <StatCard
-          label="Formations publiées"
+          label="Formations"
           value={counts.formationsPubliees}
           icon={BookOpen}
           hint={`${formations.length} formation(s) au total`}
         />
         <StatCard
-          label="Actualités publiées"
-          value={counts.actualitesPubliees}
+          label="Actualités"
+          value={actualites.length}
           icon={Newspaper}
-          hint="Actualités visibles sur le site"
+          hint="Actualités dans la base"
         />
       </div>
 

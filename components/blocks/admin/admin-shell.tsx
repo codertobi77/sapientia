@@ -4,7 +4,6 @@ import { ExternalLink } from "lucide-react";
 import { Sidebar } from "@/components/blocks/admin/sidebar";
 import { MobileNav } from "@/components/blocks/admin/mobile-nav";
 import { SITE } from "@/lib/site";
-import type { AdminProfile } from "@/lib/auth-admin";
 
 /**
  * Shell du back-office. Server Component simple : sidebar fixe desktop (navy),
@@ -15,10 +14,10 @@ export function AdminShell({
   admin,
   children,
 }: {
-  admin: { profile: AdminProfile } | null;
+  admin: { name: string | null } | null;
   children: React.ReactNode;
 }) {
-  const name = admin?.profile.name?.trim() || "Administrateur";
+  const name = admin?.name?.trim() || "Administrateur";
 
   return (
     <div className="min-h-screen bg-cream">

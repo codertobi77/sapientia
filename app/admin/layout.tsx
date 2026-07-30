@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
-import { redirect } from "next/navigation";
-import { getCurrentAdmin } from "@/lib/auth-admin";
+import { requireAdminOrRedirect } from "@/lib/auth-admin";
 import { AdminShell } from "@/components/blocks/admin/admin-shell";
 import { ToastProvider } from "@/components/ui/toast";
 
@@ -20,10 +19,7 @@ export const metadata: Metadata = {
 export default async function AdminLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
-  const admin = await getCurrentAdmin();
-  if (!admin) {
-    redirect("/connexion?next=/admin");
-  }
+  const admin = await requireAdminOrRedirect("/admin");
 
   return (
     <ToastProvider>
