@@ -1,168 +1,117 @@
 "use client";
 
 import * as React from "react";
-import { Upload, X, Loader2, AlertCircle } from "lucide-react";
+import { UploadCloud, X, Loader2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 /**
- * Upload d'image pour le back-office. POST FormData vers /api/admin/upload
- * (route possédée par admin-content-crud) ; reçoit { url } et appelle
- * onChange(url).
- *
- * Le navigateur admin n'a jamais la service role key : l'upload transite par
- * une route API serveur. Tant que la route n'est pas mergée (crurd sibling),
- * ce composant compile car l'URL est un string ; l'upload échouera simplement
- * à l'exécution (404) tant que la route n'existe pas.
+ * STUB — admin-foundations doit fournir la version canonique.
+ * ---------------------------------------------------------------
+ * Widget d'upload d'image pour le back-office. Le navigateur admin n'a
+ * JAMAIS la service role key : l'upload passe par la route serveur
+ * /api/admin/upload (qui utilise createAdminClient côté serveur).
  *
  * Props :
- * - value : URL courante (prévisualisation si déjà renseignée).
- * - onChange(url) : remonte la nouvelle URL publique.
- * - bucket : nom du bucket cible (envoyé au serveur dans le FormData) ; par
- *   défaut "medias".
- * - accept, maxSizeBytes : validation client (le serveur doit revalider).
- * - className.
+ *  - value : l'URL publique stockée (ou chaîne vide)
+ *  - onChange : appelé avec l'URL publique une fois l'upload réussi
+ *  - bucket : bucket cible ('medias' par défaut)
+ *  - path : sous-dossier optionnel (ex: 'actualites')
+ *  - accept : types MIME acceptés (défaut images)
  */
+export interface ImageUploadProps {
+  value: string;
+  onChange: (url: string) => void;
+  bucket?: string;
+  path?: string;
+  accept?: string;
+  label?: string;
+}
+
 export function ImageUpload({
   value,
   onChange,
   bucket = "medias",
+  path,
   accept = "image/*",
-  maxSizeBytes = 5 * 1024 * 1024,
-  className,
-  label = "Importer une image",
-}: {
-  value?: string | null;
-  onChange: (url: string) => void;
-  bucket?: string;
-  accept?: string;
-  maxSizeBytes?: number;
-  className?: string;
-  label?: string;
-}) {
-  const inputRef = React.useRef<HTMLInputElement | null>(null);
-  const [status, setStatus] = React.useState<"idle" | "uploading" | "error">("idle");
-  const [error, setError] = React.useState<string | null>(null);
-  const [dragOver, setDragOver] = React.useState(false);
+  label = "Image",
+}: ImageUploadProps) {
+  const [uploading, setUploading] = React.useState(false);
+  const [error, setError] = React.useState("");
+  const inputRef = React.useRef<HTMLInputElement>(null);
 
-  async function uploadFile(file: File) {
-    if (file.size > maxSizeBytes) {
-      setError("Le fichier dépasse la taille maximale autorisée.");
-      setStatus("error");
-      return;
-    }
-    setStatus("uploading");
-    setError(null);
+  async function onFile(file: File) {
+    setUploading(true);
+    setError("");
     try {
       const fd = new FormData();
       fd.append("file", file);
       fd.append("bucket", bucket);
-      const res = await fetch("/api/admin/upload", {
-        method: "POST",
-        body: fd,
-      });
-      if (!res.ok) {
-        const body = await res.json().catch(() => ({}));
-        throw new Error(body?.error || `Upload échoué (${res.status})`);
-      }
-      const data = (await res.json()) as { url?: string; error?: string };
-      if (!data.url) throw new Error(data.error || "Réponse sans URL.");
-      onChange(data.url);
-      setStatus("idle");
+      if (path) fd.append("path", path);
+      const res = await fetch("/api/admin/upload", { method: "POST", body: fd });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error ?? "Échec de l'upload");
+      onChange(data.url as string);
     } catch (e) {
-      setStatus("error");
-      setError(e instanceof Error ? e.message : "Upload échoué.");
+      setError(e instanceof Error ? e.message : "Échec de l'upload");
+    } finally {
+      setUploading(false);
     }
   }
 
-  function onPick(e: React.ChangeEvent<HTMLInputElement>) {
-    const file = e.target.files?.[0];
-    if (file) void uploadFile(file);
-    e.target.value = "";
-  }
-
-  function onDrop(e: React.DragEvent<HTMLDivElement>) {
-    e.preventDefault();
-    setDragOver(false);
-    const file = e.dataTransfer.files?.[0];
-    if (file) void uploadFile(file);
-  }
-
-  const preview = value || null;
-
   return (
-    <div className={cn("space-y-2", className)}>
-      <div
-        onDragOver={(e) => {
-          e.preventDefault();
-          setDragOver(true);
-        }}
-        onDragLeave={() => setDragOver(false)}
-        onDrop={onDrop}
-        className={cn(
-          "flex items-center gap-4 rounded-2xl border-2 border-dashed p-4 transition-colors",
-          dragOver ? "border-navy bg-navy-50" : "border-border bg-cream/30",
-        )}
-      >
-        <div className="flex h-20 w-20 shrink-0 items-center justify-center overflow-hidden rounded-xl border border-border bg-white">
-          {preview ? (
-            // URL vient du bucket public Storage via la route serveur.
-            // eslint-disable-next-line @next/next/no-img-element
-            <img src={preview} alt="Aperçu" className="h-full w-full object-cover" />
-          ) : (
-            <Upload className="h-6 w-6 text-muted" aria-hidden />
+    <div>
+      <div className="flex items-center gap-4">
+        <button
+          type="button"
+          onClick={() => inputRef.current?.click()}
+          disabled={uploading}
+          className={cn(
+            "relative flex h-24 w-24 shrink-0 items-center justify-center overflow-hidden rounded-xl border-2 border-dashed border-border bg-cream text-muted hover:border-gold transition-colors",
+            uploading && "opacity-60",
           )}
-        </div>
-
-        <div className="min-w-0 flex-1">
-          <input
-            ref={inputRef}
-            type="file"
-            accept={accept}
-            onChange={onPick}
-            disabled={status === "uploading"}
-            className="sr-only"
-          />
-          <button
-            type="button"
-            onClick={() => inputRef.current?.click()}
-            disabled={status === "uploading"}
-            className="inline-flex h-10 items-center gap-2 rounded-full bg-navy px-5 text-sm font-semibold text-white transition-colors hover:bg-navy-700 disabled:opacity-60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold"
-          >
-            {status === "uploading" ? (
-              <Loader2 className="h-4 w-4 animate-spin" aria-hidden />
-            ) : (
-              <Upload className="h-4 w-4" aria-hidden />
-            )}
-            {label}
-          </button>
-          {preview ? (
-            <div className="mt-2 flex items-center gap-2">
-              <code className="truncate rounded bg-navy-50 px-2 py-1 text-xs text-navy">
-                {preview}
-              </code>
-              <button
-                type="button"
-                aria-label="Retirer l'image"
-                onClick={() => onChange("")}
-                className="inline-flex h-7 w-7 items-center justify-center rounded-full text-muted transition-colors hover:bg-navy-50 hover:text-navy focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold"
-              >
-                <X className="h-4 w-4" />
-              </button>
-            </div>
+          aria-label={`Téléverser ${label}`}
+        >
+          {value ? (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img src={value} alt="" className="h-full w-full object-cover" />
+          ) : uploading ? (
+            <Loader2 className="h-6 w-6 animate-spin" />
           ) : (
-            <p className="mt-1 text-xs text-muted">
-              Glissez une image ici ou cliquez pour parcourir. Max 5 Mo.
-            </p>
+            <UploadCloud className="h-7 w-7" />
+          )}
+        </button>
+
+        <div className="min-w-0">
+          <p className="text-sm font-semibold text-navy">{label}</p>
+          <p className="text-xs text-muted">Cliquez pour téléverser</p>
+          {value && (
+            <button
+              type="button"
+              onClick={() => onChange("")}
+              className="mt-1 inline-flex items-center gap-1 text-xs text-red-600 hover:underline"
+            >
+              <X className="h-3 w-3" /> Retirer
+            </button>
           )}
         </div>
       </div>
 
-      {status === "error" && error ? (
-        <p className="flex items-center gap-2 text-sm text-red-600">
-          <AlertCircle className="h-4 w-4" aria-hidden />
-          {error}
-        </p>
-      ) : null}
+      <input
+        ref={inputRef}
+        type="file"
+        accept={accept}
+        className="hidden"
+        onChange={(e) => {
+          const f = e.target.files?.[0];
+          if (f) onFile(f);
+          e.target.value = "";
+        }}
+      />
+
+      {error && <p className="mt-2 text-xs text-red-600">{error}</p>}
+      {value && (
+        <input type="hidden" name="image_url" value={value} />
+      )}
     </div>
   );
 }
