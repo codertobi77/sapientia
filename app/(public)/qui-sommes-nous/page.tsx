@@ -8,7 +8,7 @@ import { Badge } from "@/components/ui/badge";
 export const metadata: Metadata = {
   title: "Qui sommes-nous — EFES « SAPIENTIA »",
   description:
-    "EFES « SAPIENTIA », université privée de formation des enseignants au Bénin. 17 membres fondateurs, 9 filières, 4 campus, une pédagogie innovante et accessible.",
+    "EFES « SAPIENTIA », établissement privé de formation des enseignants au Bénin. 17 membres fondateurs, 9 filières, 4 campus, une pédagogie innovante et accessible.",
 };
 
 const stats = [
@@ -34,7 +34,7 @@ export default function QuiSommesNousPage() {
         eyebrow="L'institution"
         title={
           <>
-            Une université née d'une <span className="text-gold">ambition pédagogique</span>.
+            Un établissement né d'une <span className="text-gold">ambition pédagogique</span>.
           </>
         }
         description="L'EFES « SAPIENTIA » réunit des enseignants engagés pour former la nouvelle génération d'éducateurs au Bénin, sur 4 campus et via une plateforme e-learning."

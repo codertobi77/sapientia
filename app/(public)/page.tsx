@@ -13,7 +13,7 @@ import {
 } from "@/lib/data";
 
 export const metadata: Metadata = {
-  title: "EFES « SAPIENTIA » — Université privée de formation des enseignants",
+  title: "EFES « SAPIENTIA » — Établissement privé de formation des enseignants",
   description:
     "Formations en présentiel et à distance au Bénin. Plus de 17 membres fondateurs, 9 filières, 4 campus : Porto-Novo, Parakou, Savè et Abomey-Calavi.",
 };
@@ -34,7 +34,7 @@ export default async function HomePage() {
     name: "EFES « SAPIENTIA »",
     alternateName: "SAPIENTIA",
     description:
-      "Université privée de formation des enseignants au Bénin. Formations en présentiel et à distance : Porto-Novo, Parakou, Savè, Abomey-Calavi.",
+      "Établissement privé de formation des enseignants au Bénin. Formations en présentiel et à distance : Porto-Novo, Parakou, Savè, Abomey-Calavi.",
     url: SITE_URL,
     email: "contact@efes-sapientia.bj",
     telephone: "+22900000000",

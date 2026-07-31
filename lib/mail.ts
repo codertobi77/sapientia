@@ -44,7 +44,7 @@ export function confirmationEmail(nom: string, contenuHtml: string) {
   <div style="font-family:Inter,Arial,sans-serif;max-width:560px;margin:auto;background:#ffffff;border-radius:16px;overflow:hidden;border:1px solid #e6eaf0">
     <div style="background:#0A2345;padding:24px 32px;color:#fff">
       <p style="margin:0;font-size:20px;font-weight:700">EFES « SAPIENTIA »</p>
-      <p style="margin:4px 0 0;color:#d89a27;font-size:12px;letter-spacing:.1em;text-transform:uppercase">Université privée de formation des enseignants</p>
+      <p style="margin:4px 0 0;color:#d89a27;font-size:12px;letter-spacing:.1em;text-transform:uppercase">Établissement privé de formation des enseignants</p>
     </div>
     <div style="padding:32px;color:#0f172a;line-height:1.6">
       <p>Bonjour ${nom},</p>

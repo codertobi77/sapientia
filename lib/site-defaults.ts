@@ -93,7 +93,7 @@ export const DEFAULT_LOGO: LogoConfig = {
   imageUrl: "/logo.jpeg",
   alt: "EFES SAPIENTIA",
   text: "EFES SAPIENTIA",
-  subtitle: "Université privée de formation des enseignants",
+  subtitle: "Établissement privé de formation des enseignants",
 };
 
 // Construit le tableau de liens sociaux à partir d'un objet SiteSocials.

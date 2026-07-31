@@ -50,7 +50,7 @@ export default async function AdminCampusPage() {
       <header className="flex items-center justify-between mb-6">
         <div>
           <h1 className="font-display text-2xl font-bold text-navy">Campus</h1>
-          <p className="text-sm text-muted">Les sites et campus de l'université.</p>
+          <p className="text-sm text-muted">Les sites et campus de l'établissement.</p>
         </div>
         <Link href="/admin/campus/new">
           <Button size="sm">

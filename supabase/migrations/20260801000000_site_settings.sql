@@ -59,7 +59,7 @@ insert into public.site_settings (key, value) values
 on conflict (key) do nothing;
 
 insert into public.site_settings (key, value) values
-  ('logo', '{"imageUrl":"/logo.jpeg","alt":"EFES SAPIENTIA","text":"EFES SAPIENTIA","subtitle":"Université privée de formation des enseignants"}'::jsonb)
+  ('logo', '{"imageUrl":"/logo.jpeg","alt":"EFES SAPIENTIA","text":"EFES SAPIENTIA","subtitle":"Établissement privé de formation des enseignants"}'::jsonb)
 on conflict (key) do nothing;
 
 -- 'Exécutez dans le SQL Editor Supabase. Les valeurs par défaut sont déjà en place.';
