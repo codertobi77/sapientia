@@ -1,5 +1,6 @@
 import { Users, GraduationCap, MapPin, School, Award, BookOpen, Pin, type LucideIcon } from "lucide-react";
-import { STATS, type Stat } from "@/lib/site";
+import { getStats } from "@/lib/settings";
+import type { Stat } from "@/lib/site-defaults";
 
 const icons: Record<string, LucideIcon> = {
   users: Users,
@@ -11,11 +12,12 @@ const icons: Record<string, LucideIcon> = {
   pin: Pin,
 };
 
-export function StatsBand() {
+export async function StatsBand() {
+  const stats = await getStats();
   return (
     <div className="container-site -mt-14 lg:-mt-16 relative z-20">
       <div className="rounded-3xl bg-white shadow-premium-lg border border-border grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 divide-x divide-border overflow-hidden">
-        {STATS.map((s: Stat, i: number) => {
+        {stats.map((s: Stat, i: number) => {
           const Icon = icons[s.icon] ?? Award;
           return (
             <div

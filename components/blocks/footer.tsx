@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Mail, Phone, MapPin, Send } from "lucide-react";
-import { SITE, SOCIAL_LINKS } from "@/lib/site";
+import { getSocials, getIdentity } from "@/lib/settings";
 import { NewsletterForm } from "@/components/blocks/newsletter-form";
 import { SOCIAL_ICONS } from "@/components/blocks/social-icons";
 
@@ -20,7 +20,9 @@ const informations = [
   { label: "Contact", href: "/contact" },
 ];
 
-export function Footer() {
+export async function Footer() {
+  const identity = await getIdentity();
+  const { links: socialLinks } = await getSocials();
   return (
     <footer className="bg-navy text-white">
       <div className="container-site py-16 lg:py-20 grid gap-12 lg:grid-cols-4">
@@ -58,23 +60,23 @@ export function Footer() {
           <ul className="space-y-4 text-white/80">
             <li className="flex items-start gap-3">
               <MapPin className="h-5 w-5 text-gold shrink-0 mt-0.5" />
-              <span>{SITE.address}</span>
+              <span>{identity.address}</span>
             </li>
             <li>
-              <a href={`tel:${SITE.phone.replace(/\s/g, "")}`} className="flex items-start gap-3 hover:text-gold transition-colors">
+              <a href={`tel:${identity.phone.replace(/\s/g, "")}`} className="flex items-start gap-3 hover:text-gold transition-colors">
                 <Phone className="h-5 w-5 text-gold shrink-0 mt-0.5" />
-                <span>{SITE.phone}</span>
+                <span>{identity.phone}</span>
               </a>
             </li>
             <li>
-              <a href={`mailto:${SITE.email}`} className="flex items-start gap-3 hover:text-gold transition-colors">
+              <a href={`mailto:${identity.email}`} className="flex items-start gap-3 hover:text-gold transition-colors">
                 <Mail className="h-5 w-5 text-gold shrink-0 mt-0.5" />
-                <span>{SITE.email}</span>
+                <span>{identity.email}</span>
               </a>
             </li>
           </ul>
           <div className="flex items-center gap-4 mt-6">
-            {SOCIAL_LINKS.map(({ href, key, label }) => {
+            {socialLinks.map(({ href, key, label }) => {
               const Icon = SOCIAL_ICONS[key];
               return (
                 <a
