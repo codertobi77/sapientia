@@ -1,16 +1,24 @@
 import * as React from "react";
-import Link from "next/link";
-import { ExternalLink } from "lucide-react";
 import { Sidebar } from "@/components/blocks/admin/sidebar";
 import { MobileNav } from "@/components/blocks/admin/mobile-nav";
-import { SITE } from "@/lib/site";
+import { AdminTopbar } from "@/components/blocks/admin/admin-topbar";
+import { getIdentity } from "@/lib/settings";
+import { listMessages } from "@/lib/data-admin-inbox";
 
 /**
- * Shell du back-office. Server Component simple : sidebar fixe desktop (navy),
- * topbar desktop (nom admin + "Voir le site"), barre mobile (MobileNav client),
- * et le contenu de la page dans un conteneur large.
+ * Shell du back-office (Server Component asynchrone).
+ * Layout :
+ *   - AdminTopbar (sticky, client) : fil d'Ariane, avatar, badge messages,
+ *     « Voir le site », déconnexion. Commune desktop + mobile.
+ *   - Sur mobile : MobileNav (menu burger) sous la topbar.
+ *   - Sur desktop : sidebar fixe (sticky sous la topbar) à gauche.
+ *   - Contenu dans un conteneur large max-w-6xl.
+ *
+ * Le nombre de messages non lus est calculé côté serveur via le DAL admin
+ * (service role). En cas d'erreur (ex. service role non configuré), on
+ * retombe à 0 silencieusement pour ne pas casser le shell.
  */
-export function AdminShell({
+export async function AdminShell({
   admin,
   children,
 }: {
@@ -19,36 +27,34 @@ export function AdminShell({
 }) {
   const name = admin?.name?.trim() || "Administrateur";
 
+  let shortName = "SAPIENTIA";
+  let unreadCount = 0;
+  try {
+    shortName = (await getIdentity()).shortName || shortName;
+  } catch {
+    /* defaults */
+  }
+  try {
+    unreadCount = (await listMessages({ lu: false })).length;
+  } catch {
+    unreadCount = 0;
+  }
+
   return (
     <div className="min-h-screen bg-cream">
-      <MobileNav adminName={name} />
+      {/* Topbar (sticky) desktop + mobile */}
+      <AdminTopbar
+        adminName={name}
+        shortName={shortName}
+        unreadCount={unreadCount}
+      />
 
-      {/* Topbar desktop */}
-      <header className="hidden border-b border-border bg-navy text-white md:block">
-        <div className="flex items-center justify-between gap-4 px-6 py-3">
-          <div className="flex items-center gap-3">
-            <span className="font-display text-lg font-bold">
-              {SITE.shortName} · Admin
-            </span>
-          </div>
-          <div className="flex items-center gap-4">
-            <span className="text-sm font-medium text-white/70">
-              {name}
-            </span>
-            <Link
-              href="/"
-              className="inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-sm font-semibold text-white/90 transition-colors hover:bg-navy-700"
-            >
-              <ExternalLink className="h-4 w-4" aria-hidden />
-              Voir le site
-            </Link>
-          </div>
-        </div>
-      </header>
+      {/* Menu mobile (Sheet) */}
+      <MobileNav adminName={name} shortName={shortName} unreadCount={unreadCount} />
 
       <div className="flex">
-        {/* Sidebar desktop fixe (sticky) */}
-        <aside className="sticky top-0 hidden h-screen w-72 shrink-0 overflow-y-auto border-r border-border bg-white md:block">
+        {/* Sidebar desktop (sticky sous la topbar : top-16 = hauteur topbar) */}
+        <aside className="sticky top-16 hidden h-[calc(100vh-4rem)] w-72 shrink-0 overflow-y-auto border-r border-border bg-white md:block">
           <Sidebar />
         </aside>
 

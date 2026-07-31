@@ -35,3 +35,50 @@ export const inscriptionSchema = z.object({
   niveau: z.string().trim().optional(),
   documents_paths: z.array(z.string()).default([]),
 });
+
+// ------------------------------------------------------------------------
+// Paramètres du site (sections éditables depuis /admin/parametres)
+// ------------------------------------------------------------------------
+export const settingsIdentitySchema = z.object({
+  name: z.string().min(2, "Nom requis").trim(),
+  shortName: z.string().min(2, "Nom court requis").trim(),
+  subtitle: z.string().trim().default(""),
+  email: emailSchema,
+  phone: z.string().min(4, "Téléphone requis").trim(),
+  address: z.string().min(2, "Adresse requise").trim(),
+  whatsapp: z.string().min(4, "Numéro WhatsApp requis").trim(),
+});
+
+export const settingsSocialsSchema = z.object({
+  facebook: z.string().trim().url("URL invalide").optional().or(z.literal("")),
+  instagram: z.string().trim().url("URL invalide").optional().or(z.literal("")),
+  linkedin: z.string().trim().url("URL invalide").optional().or(z.literal("")),
+  youtube: z.string().trim().url("URL invalide").optional().or(z.literal("")),
+});
+
+export const settingsStatItemSchema = z.object({
+  value: z.string().min(1, "Valeur requise").trim(),
+  label: z.string().min(2, "Libellé requis").trim(),
+  sublabel: z.string().trim().optional(),
+  icon: z.string().min(1, "Icône requise").trim(),
+});
+export const settingsStatsSchema = z
+  .array(settingsStatItemSchema)
+  .max(12, "12 chiffres clés maximum")
+  .min(1, "Au moins un chiffre clé");
+
+export const settingsNavItemSchema = z.object({
+  label: z.string().min(1, "Libellé requis").trim(),
+  href: z.string().min(1, "Lien requis").trim(),
+});
+export const settingsNavSchema = z
+  .array(settingsNavItemSchema)
+  .max(15, "15 liens maximum")
+  .min(1, "Au moins un lien de navigation");
+
+export const settingsLogoSchema = z.object({
+  imageUrl: z.string().trim().default(""),
+  alt: z.string().min(2, "Texte alternatif requis").trim(),
+  text: z.string().min(2, "Texte du logo requis").trim(),
+  subtitle: z.string().trim().default(""),
+});

@@ -14,7 +14,9 @@ import {
   ClipboardList,
   FileText,
   Mail,
+  Send,
   Users,
+  Settings,
   ExternalLink,
   LogOut,
   type LucideIcon,
@@ -41,9 +43,17 @@ const NAV_ITEMS: NavItem[] = [
   { href: "/admin/inscriptions", label: "Inscriptions", icon: ClipboardList },
   { href: "/admin/devis", label: "Devis", icon: FileText },
   { href: "/admin/messages", label: "Messages", icon: Mail },
-  { href: "/admin/newsletter", label: "Newsletter", icon: Mail },
+  { href: "/admin/newsletter", label: "Newsletter", icon: Send },
   { href: "/admin/utilisateurs", label: "Utilisateurs", icon: Users },
 ];
+
+// Entrée "Paramètres" séparée (icône engrenage), rendue en bas de la liste
+// juste avant "Voir le site" / "Déconnexion".
+const PARAMETRES_ITEM: NavItem = {
+  href: "/admin/parametres",
+  label: "Paramètres",
+  icon: Settings,
+};
 
 /**
  * Sidebar admin (client). Actif via usePathname. Bouton déconnexion : signOut
@@ -95,7 +105,21 @@ export function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
         })}
       </ul>
 
-      <div className="mt-2 border-t border-border pt-2">
+      <div className="mt-2 border-t border-border pt-2 space-y-0.5">
+        <Link
+          href={PARAMETRES_ITEM.href}
+          onClick={onNavigate}
+          aria-current={isActive(PARAMETRES_ITEM) ? "page" : undefined}
+          className={cn(
+            "flex items-center gap-3 rounded-xl px-3 py-2 text-sm font-medium transition-colors",
+            isActive(PARAMETRES_ITEM)
+              ? "bg-gold text-navy shadow-premium"
+              : "text-navy/80 hover:bg-navy-50 hover:text-navy",
+          )}
+        >
+          <Settings className="h-5 w-5 shrink-0" aria-hidden />
+          <span>Paramètres</span>
+        </Link>
         <Link
           href="/"
           onClick={onNavigate}

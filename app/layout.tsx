@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Manrope } from "next/font/google";
 import "./globals.css";
+import { getIdentity } from "@/lib/settings";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -14,22 +15,25 @@ const manrope = Manrope({
   display: "swap",
 });
 
-export const metadata: Metadata = {
-  title: {
-    default: "EFES « SAPIENTIA » — Université privée de formation des enseignants",
-    template: "%s · EFES « SAPIENTIA »",
-  },
-  description:
-    "EFES « SAPIENTIA », université privée de formation des enseignants au Bénin. Formations en présentiel et à distance à Porto-Novo, Parakou, Savè et Abomey-Calavi.",
-  metadataBase: new URL("https://efes-sapientia.bj"),
-  openGraph: {
-    type: "website",
-    locale: "fr_FR",
-    title: "EFES « SAPIENTIA » — Université privée de formation des enseignants",
-    description:
-      "Formations en présentiel et à distance. Plus de 17 membres fondateurs, présence à Porto-Novo, Parakou, Savè et Abomey-Calavi.",
-  },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const identity = await getIdentity();
+  const siteName = `${identity.name}`;
+  const titleDefault = `${siteName} — ${identity.subtitle}`;
+  return {
+    title: {
+      default: titleDefault,
+      template: `%s · ${siteName}`,
+    },
+    description: `${identity.name}, ${identity.subtitle}. ${identity.address}.`,
+    metadataBase: new URL("https://efes-sapientia.bj"),
+    openGraph: {
+      type: "website",
+      locale: "fr_FR",
+      title: titleDefault,
+      description: identity.subtitle,
+    },
+  };
+}
 
 export default function RootLayout({
   children,

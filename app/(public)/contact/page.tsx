@@ -3,24 +3,28 @@ import { Mail, Phone, MapPin, MessageCircle } from "lucide-react";
 import { PageHero } from "@/components/blocks/page-hero";
 import { Section } from "@/components/blocks/section";
 import { Card } from "@/components/ui/card";
-import { SITE, SOCIAL_LINKS } from "@/lib/site";
+import { getIdentity, getSocials } from "@/lib/settings";
 import { SOCIAL_ICONS } from "@/components/blocks/social-icons";
 import { ContactForm } from "@/components/blocks/contact-form";
 
-export const metadata: Metadata = {
-  title: "Contact — EFES « SAPIENTIA »",
-  description:
-    "Contactez l'EFES « SAPIENTIA » : adresse, téléphone, e-mail, WhatsApp et réseaux sociaux. Quartier Ouando, Porto-Novo, Bénin.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const identity = await getIdentity();
+  return {
+    title: `Contact — ${identity.name}`,
+    description: `Contactez ${identity.name} : adresse, téléphone, e-mail, WhatsApp et réseaux sociaux. ${identity.address}.`,
+  };
+}
 
-export default function ContactPage() {
+export default async function ContactPage() {
+  const identity = await getIdentity();
+  const { links: socialLinks } = await getSocials();
   const mapsApiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY ?? "";
   const query = encodeURIComponent("Ouando, Porto-Novo, Bénin");
   const mapSrc = mapsApiKey
     ? `https://www.google.com/maps/embed/v1/place?key=${mapsApiKey}&q=${query}`
     : `https://maps.google.com/maps?q=${query}&output=embed`;
 
-  const whatsappHref = `https://wa.me/${SITE.whatsapp}?text=${encodeURIComponent(
+  const whatsappHref = `https://wa.me/${identity.whatsapp}?text=${encodeURIComponent(
     "Bonjour, je souhaite des informations sur EFES « SAPIENTIA ».",
   )}`;
 
@@ -62,7 +66,7 @@ export default function ContactPage() {
                   </span>
                   <div>
                     <p className="text-sm font-semibold text-navy">Adresse</p>
-                    <p className="text-slate">{SITE.address}</p>
+                    <p className="text-slate">{identity.address}</p>
                   </div>
                 </li>
                 <li className="flex items-start gap-3">
@@ -71,8 +75,8 @@ export default function ContactPage() {
                   </span>
                   <div>
                     <p className="text-sm font-semibold text-navy">Téléphone</p>
-                    <a href={`tel:${SITE.phone.replace(/\s/g, "")}`} className="text-slate hover:text-gold transition-colors">
-                      {SITE.phone}
+                    <a href={`tel:${identity.phone.replace(/\s/g, "")}`} className="text-slate hover:text-gold transition-colors">
+                      {identity.phone}
                     </a>
                   </div>
                 </li>
@@ -82,8 +86,8 @@ export default function ContactPage() {
                   </span>
                   <div>
                     <p className="text-sm font-semibold text-navy">E-mail</p>
-                    <a href={`mailto:${SITE.email}`} className="text-slate hover:text-gold transition-colors">
-                      {SITE.email}
+                    <a href={`mailto:${identity.email}`} className="text-slate hover:text-gold transition-colors">
+                      {identity.email}
                     </a>
                   </div>
                 </li>
@@ -103,7 +107,7 @@ export default function ContactPage() {
               <div className="mt-6 pt-6 border-t border-border">
                 <p className="text-sm font-semibold text-navy mb-3">Réseaux sociaux</p>
                 <div className="flex items-center gap-3">
-                  {SOCIAL_LINKS.map(({ href, key, label }) => {
+                  {socialLinks.map(({ href, key, label }) => {
                     const Icon = SOCIAL_ICONS[key];
                     return (
                       <a

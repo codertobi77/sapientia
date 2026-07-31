@@ -1,7 +1,8 @@
-import { SITE } from "@/lib/site";
+import { getIdentity } from "@/lib/settings";
 
-export function WhatsAppButton() {
-  const href = `https://wa.me/${SITE.whatsapp}?text=${encodeURIComponent(
+export async function WhatsAppButton() {
+  const identity = await getIdentity();
+  const href = `https://wa.me/${identity.whatsapp}?text=${encodeURIComponent(
     "Bonjour, je souhaite des informations sur EFES « SAPIENTIA ».",
   )}`;
   return (
