@@ -38,7 +38,7 @@ export function Hero() {
           </h1>
 
           <p className="mt-5 text-base text-white/80 leading-relaxed max-w-sm">
-            EFES « SAPIENTIA » est une université privée spécialisée dans la
+            EFES SAPIENTIA est une université privée spécialisée dans la
             formation des enseignants compétents, éthiques et innovants.
           </p>
 
