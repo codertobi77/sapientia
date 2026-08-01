@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { contactSchema } from "@/lib/validators";
-import { sendMail, notifyAdmin } from "@/lib/mail";
+import { sendMail, notifyAdmin, confirmationEmail, escapeHtml } from "@/lib/mail";
 
 export async function POST(request: Request) {
   let body;
@@ -31,21 +31,24 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Erreur d'enregistrement" }, { status: 500 });
   }
 
+  const sujet = escapeHtml(parsed.data.sujet);
+  const message = escapeHtml(parsed.data.message).replace(/\n/g, "<br/>");
+
   await Promise.all([
     notifyAdmin(
       `Nouveau message de contact — ${parsed.data.sujet}`,
-      `<p><strong>${parsed.data.nom}</strong> (${parsed.data.email})</p>
-       <p><strong>Sujet :</strong> ${parsed.data.sujet}</p>
-       <p>${parsed.data.message.replace(/\n/g, "<br/>")}</p>`,
+      `<p><strong>${escapeHtml(parsed.data.nom)}</strong> (${escapeHtml(parsed.data.email)})</p>
+       <p><strong>Sujet :</strong> ${sujet}</p>
+       <p>${message}</p>`,
     ),
     sendMail({
       to: parsed.data.email,
       subject: "Nous avons bien reçu votre message — EFES « SAPIENTIA »",
-      html: `<div style="font-family:Inter,Arial,sans-serif;color:#0f172a;line-height:1.6">
-        <p>Bonjour ${parsed.data.nom},</p>
-        <p>Nous avons bien reçu votre message et reviendrons vers vous très rapidement.</p>
-        <p style="color:#64748b">Sujet : ${parsed.data.sujet}</p>
-      </div>`,
+      html: confirmationEmail(
+        parsed.data.nom,
+        `<p>Nous avons bien reçu votre message et reviendrons vers vous très rapidement.</p>
+         <p style="color:#64748b">Sujet : ${sujet}</p>`,
+      ),
       replyTo: process.env.CONTACT_EMAIL ?? undefined,
     }),
   ]);

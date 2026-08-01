@@ -2,6 +2,10 @@ import type { Metadata } from "next";
 import { Suspense } from "react";
 import { AuthCard, AuthLink } from "@/components/blocks/auth/auth-card";
 import { LoginForm } from "@/components/blocks/auth/login-form";
+import { UpdatePasswordForm } from "@/components/blocks/auth/update-password-form";
+import { ConnexionContent } from "@/components/blocks/auth/connexion-content";
+
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: "Connexion — Espace étudiant",
@@ -23,7 +27,10 @@ export default function ConnexionPage() {
       }
     >
       <Suspense fallback={<div className="h-64" />}>
-      <LoginForm />
+        <ConnexionContent
+          login={<LoginForm />}
+          updatePassword={(code) => <UpdatePasswordForm code={code} />}
+        />
       </Suspense>
     </AuthCard>
   );

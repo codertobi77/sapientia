@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { devisSchema } from "@/lib/validators";
-import { notifyAdmin } from "@/lib/mail";
+import { sendMail, notifyAdmin, confirmationEmail, escapeHtml } from "@/lib/mail";
 
 export async function POST(request: Request) {
   let body;
@@ -36,13 +36,26 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Erreur d'enregistrement" }, { status: 500 });
   }
 
-  await notifyAdmin(
-    "Nouvelle demande de devis",
-    `<p><strong>${parsed.data.nom}</strong> (${parsed.data.email} — ${parsed.data.telephone ?? "—"})</p>
-     <p><strong>Formation :</strong> ${parsed.data.formation_id ?? "non précisée"}</p>
-     <p><strong>Type :</strong> ${parsed.data.type_formation} · <strong>Niveau :</strong> ${parsed.data.niveau} · <strong>Durée :</strong> ${parsed.data.duree}</p>
-     <p>${parsed.data.message?.replace(/\n/g, "<br/>") ?? ""}</p>`,
-  );
+  await Promise.all([
+    sendMail({
+      to: parsed.data.email,
+      subject: "Confirmation de votre demande de devis — EFES « SAPIENTIA »",
+      html: confirmationEmail(
+        parsed.data.nom,
+        `<p>Nous confirmons la bonne réception de votre demande de devis.</p>
+        <p>Notre équipe prépare une proposition personnalisée et reviendra vers vous par e-mail dans les meilleurs délais.</p>
+        <p style="color:#64748b">Merci de votre confiance.</p>`,
+      ),
+      replyTo: process.env.CONTACT_EMAIL ?? undefined,
+    }),
+    notifyAdmin(
+      "Nouvelle demande de devis",
+      `<p><strong>${escapeHtml(parsed.data.nom)}</strong> (${escapeHtml(parsed.data.email)} — ${escapeHtml(parsed.data.telephone ?? "—")})</p>
+       <p><strong>Formation :</strong> ${escapeHtml(parsed.data.formation_id ?? "non précisée")}</p>
+       <p><strong>Type :</strong> ${escapeHtml(parsed.data.type_formation)} · <strong>Niveau :</strong> ${escapeHtml(parsed.data.niveau)} · <strong>Durée :</strong> ${escapeHtml(parsed.data.duree)}</p>
+       <p>${parsed.data.message ? escapeHtml(parsed.data.message).replace(/\n/g, "<br/>") : ""}</p>`,
+    ),
+  ]);
 
   return NextResponse.json({ ok: true });
 }
