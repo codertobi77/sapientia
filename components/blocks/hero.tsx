@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { MonitorPlay, School, GraduationCap, Play, Award } from "lucide-react";
+import { MonitorPlay, School, GraduationCap, Award } from "lucide-react";
 
 export function Hero() {
   return (
@@ -85,13 +85,6 @@ export function Hero() {
             >
               <GraduationCap className="h-4 w-4" />
               Découvrir nos formations
-            </Link>
-            <Link
-              href="/galerie"
-              className="inline-flex items-center gap-2 h-12 px-7 rounded-full bg-white/10 border border-white/20 text-white font-semibold text-sm hover:bg-white/20 transition-all duration-200"
-            >
-              <Play className="h-4 w-4" />
-              Voir la vidéo
             </Link>
           </div>
         </div>

@@ -121,7 +121,6 @@ export const DEFAULT_NAV: NavItem[] = [
   { label: "Formation à distance", href: "/formation-distance" },
   { label: "Formation en présentiel", href: "/formation-presentiel" },
   { label: "Actualités", href: "/actualites" },
-  { label: "Galerie", href: "/galerie" },
   { label: "Contact", href: "/contact" },
 ];
 

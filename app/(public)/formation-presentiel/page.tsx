@@ -7,11 +7,18 @@ import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { getCampus, getFormations } from "@/lib/data";
 
-export const metadata: Metadata = {
-  title: "Formation en présentiel — EFES « SAPIENTIA »",
-  description:
-    "Un encadrement de proximité, des salles modernes et un emploi du temps structuré sur nos 4 campus au Bénin : Porto-Novo, Parakou, Savè et Abomey-Calavi.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const campus = await getCampus();
+  const villes = campus.map((c) => c.ville).join(", ");
+  const description =
+    campus.length > 0
+      ? `Un encadrement de proximité, des salles modernes et un emploi du temps structuré sur nos ${campus.length} campus au Bénin : ${villes}.`
+      : "Un encadrement de proximité, des salles modernes et un emploi du temps structuré sur nos campus au Bénin.";
+  return {
+    title: "Formation en présentiel — EFES « SAPIENTIA »",
+    description,
+  };
+}
 
 const organisation = [
   { titre: "Encadrement", texte: "Des enseignants qualifiés accompagnent chaque promotion en petits groupes.", icon: Users },
@@ -58,10 +65,12 @@ export default async function FormationPresentielPage() {
           </div>
           <div className="rounded-3xl bg-gradient-to-br from-navy via-navy-700 to-gold/30 min-h-[340px] flex items-center justify-center relative overflow-hidden">
             <GraduationCap className="h-16 w-16 text-gold" />
-            <Badge variant="gold" className="absolute top-6 left-6">
-              <MapPin className="h-3.5 w-3.5" />
-              4 campus
-            </Badge>
+            {campus.length > 0 && (
+              <Badge variant="gold" className="absolute top-6 left-6">
+                <MapPin className="h-3.5 w-3.5" />
+                {campus.length} campus
+              </Badge>
+            )}
           </div>
         </div>
 
@@ -97,25 +106,35 @@ export default async function FormationPresentielPage() {
         </div>
       </Section>
 
-      {/* Campus */}
+      {/* Campus (uniquement les sites actifs) */}
       <Section>
-        <SectionHeading
-          eyebrow="Nos campus"
-          title="Quatre villes, une même exigence"
-          description="Choisissez le campus le plus proche de chez vous : Porto-Novo, Parakou, Savè et Abomey-Calavi."
-        />
-        <div className="mt-14 grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {campus.map((c) => (
-            <Card key={c.id} className="p-7 flex flex-col">
-              <span className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-navy-50 text-navy mb-4">
-                <MapPin className="h-6 w-6" />
-              </span>
-              <h3 className="font-display text-lg font-bold text-navy">{c.ville}</h3>
-              <p className="mt-2 text-sm text-slate">{c.adresse ?? "Bénin"}</p>
-              {c.telephone && <p className="mt-1 text-sm text-slate">{c.telephone}</p>}
-            </Card>
-          ))}
-        </div>
+        {campus.length > 0 ? (
+          <>
+            <SectionHeading
+              eyebrow="Nos campus"
+              title="Nos campus, une même exigence"
+              description={`Choisissez le campus le plus proche de chez vous : ${campus.map((c) => c.ville).join(", ")}.`}
+            />
+            <div className="mt-14 grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              {campus.map((c) => (
+                <Card key={c.id} className="p-7 flex flex-col">
+                  <span className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-navy-50 text-navy mb-4">
+                    <MapPin className="h-6 w-6" />
+                  </span>
+                  <h3 className="font-display text-lg font-bold text-navy">{c.ville}</h3>
+                  <p className="mt-2 text-sm text-slate">{c.adresse ?? "Bénin"}</p>
+                  {c.telephone && <p className="mt-1 text-sm text-slate">{c.telephone}</p>}
+                </Card>
+              ))}
+            </div>
+          </>
+        ) : (
+          <SectionHeading
+            eyebrow="Nos campus"
+            title="Nos campus"
+            description="Les sites ouverts en présentiel seront affichés ici."
+          />
+        )}
       </Section>
 
       {/* Avantages navy */}

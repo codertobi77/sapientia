@@ -55,7 +55,7 @@ insert into public.site_settings (key, value) values
 on conflict (key) do nothing;
 
 insert into public.site_settings (key, value) values
-  ('nav', '[{"label":"Accueil","href":"/"},{"label":"Qui sommes-nous","href":"/qui-sommes-nous"},{"label":"Nos formations","href":"/formations"},{"label":"Formation à distance","href":"/formation-distance"},{"label":"Formation en présentiel","href":"/formation-presentiel"},{"label":"Actualités","href":"/actualites"},{"label":"Galerie","href":"/galerie"},{"label":"Contact","href":"/contact"}]'::jsonb)
+  ('nav', '[{"label":"Accueil","href":"/"},{"label":"Qui sommes-nous","href":"/qui-sommes-nous"},{"label":"Nos formations","href":"/formations"},{"label":"Formation à distance","href":"/formation-distance"},{"label":"Formation en présentiel","href":"/formation-presentiel"},{"label":"Actualités","href":"/actualites"},{"label":"Contact","href":"/contact"}]'::jsonb)
 on conflict (key) do nothing;
 
 insert into public.site_settings (key, value) values

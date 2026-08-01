@@ -12,8 +12,6 @@ create extension if not exists "pgcrypto";
 create type user_role as enum ('ADMIN', 'ETUDIANT', 'ENSEIGNANT');
 create type formation_type as enum ('PRESENTIEL', 'DISTANCE', 'LES_DEUX');
 create type actualite_type as enum ('EVENEMENT', 'SEMINAIRE', 'CONCOURS', 'PARTENARIAT', 'NOUVELLE_FORMATION', 'COMMUNIQUE');
-create type galerie_type as enum ('PHOTO', 'VIDEO');
-create type galerie_categorie as enum ('CAMPUS', 'PEDAGOGIQUE', 'DIPLOMES');
 create type demande_statut as enum ('EN_ATTENTE', 'TRAITEE', 'REFUSEE');
 
 -- ============================================================
@@ -62,18 +60,6 @@ create table if not exists public.actualites (
   updated_at timestamptz not null default now()
 );
 
-create table if not exists public.galerie_items (
-  id uuid primary key default gen_random_uuid(),
-  titre text,
-  type galerie_type not null default 'PHOTO',
-  url text not null,
-  vignette_url text,
-  categorie galerie_categorie not null default 'CAMPUS',
-  date date not null default current_date,
-  ordre int not null default 0,
-  created_at timestamptz not null default now()
-);
-
 create table if not exists public.temoignages (
   id uuid primary key default gen_random_uuid(),
   auteur text not null,
@@ -106,6 +92,7 @@ create table if not exists public.campus (
   image_url text,
   description text,
   ordre int not null default 0,
+  actif boolean not null default true,
   created_at timestamptz not null default now()
 );
 

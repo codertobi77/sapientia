@@ -40,16 +40,6 @@ export type Partenaire = {
   url: string | null;
 };
 
-export type GalerieItem = {
-  id: string;
-  titre: string | null;
-  type: "PHOTO" | "VIDEO";
-  url: string;
-  vignette_url: string | null;
-  categorie: string;
-  date: string;
-};
-
 export type Campus = {
   id: string;
   ville: string;
@@ -61,6 +51,7 @@ export type Campus = {
   description: string | null;
   image_url: string | null;
   ordre: number;
+  actif: boolean;
 };
 
 export async function getFormations(): Promise<Formation[]> {
@@ -138,20 +129,12 @@ export async function getPartenaires(): Promise<Partenaire[]> {
   return data ?? [];
 }
 
-export async function getGalerie(): Promise<GalerieItem[]> {
-  const supabase = await createClient();
-  const { data } = await supabase
-    .from("galerie_items")
-    .select("*")
-    .order("ordre", { ascending: true });
-  return data ?? [];
-}
-
 export async function getCampus(): Promise<Campus[]> {
   const supabase = await createClient();
   const { data } = await supabase
     .from("campus")
     .select("*")
+    .eq("actif", true)
     .order("ordre", { ascending: true });
   return data ?? [];
 }

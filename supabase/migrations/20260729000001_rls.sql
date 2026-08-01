@@ -6,7 +6,6 @@
 alter table public.profiles enable row level security;
 alter table public.formations enable row level security;
 alter table public.actualites enable row level security;
-alter table public.galerie_items enable row level security;
 alter table public.temoignages enable row level security;
 alter table public.partenaires enable row level security;
 alter table public.campus enable row level security;
@@ -34,8 +33,6 @@ $$;
 create policy "lecture publique formations" on public.formations
   for select using (true);
 create policy "lecture publique actualites" on public.actualites
-  for select using (true);
-create policy "lecture publique galerie" on public.galerie_items
   for select using (true);
 create policy "lecture publique temoignages" on public.temoignages
   for select using (true);
@@ -70,8 +67,6 @@ create policy "edition propre profil" on public.profiles
 create policy "admin formations" on public.formations
   for all using (public.is_admin()) with check (public.is_admin());
 create policy "admin actualites" on public.actualites
-  for all using (public.is_admin()) with check (public.is_admin());
-create policy "admin galerie" on public.galerie_items
   for all using (public.is_admin()) with check (public.is_admin());
 create policy "admin temoignages" on public.temoignages
   for all using (public.is_admin()) with check (public.is_admin());

@@ -64,18 +64,6 @@ export type AdminActualite = {
   updated_at: string;
 };
 
-export type AdminGalerieItem = {
-  id: string;
-  titre: string | null;
-  type: "PHOTO" | "VIDEO";
-  url: string;
-  vignette_url: string | null;
-  categorie: "CAMPUS" | "PEDAGOGIQUE" | "DIPLOMES";
-  date: string;
-  ordre: number;
-  created_at: string;
-};
-
 export type AdminTemoignage = {
   id: string;
   auteur: string;
@@ -108,6 +96,7 @@ export type AdminCampus = {
   image_url: string | null;
   description: string | null;
   ordre: number;
+  actif: boolean;
   created_at: string;
 };
 
@@ -178,41 +167,6 @@ export async function updateActualite(id: string, input: ActualiteInput): Promis
 
 export async function deleteActualite(id: string): Promise<{ error: string | null }> {
   const { error } = await admin().from("actualites").delete().eq("id", id);
-  return { error: error?.message ?? null };
-}
-
-/* ------------------------------------------------------------------ */
-/* Galerie                                                            */
-/* ------------------------------------------------------------------ */
-
-export type GalerieItemInput = Partial<Omit<AdminGalerieItem, "id" | "created_at">>;
-
-export async function listGalerie(): Promise<{ data: AdminGalerieItem[] | null; error: string | null }> {
-  const { data, error } = await admin().from("galerie_items").select("*").order("ordre", { ascending: true });
-  if (error) return { data: null, error: error.message };
-  return { data: data as AdminGalerieItem[], error: null };
-}
-
-export async function getGalerieItem(id: string): Promise<{ data: AdminGalerieItem | null; error: string | null }> {
-  const { data, error } = await admin().from("galerie_items").select("*").eq("id", id).maybeSingle();
-  if (error) return { data: null, error: error.message };
-  return { data: data as AdminGalerieItem | null, error: null };
-}
-
-export async function createGalerieItem(input: GalerieItemInput): Promise<{ data: AdminGalerieItem | null; error: string | null }> {
-  const { data, error } = await admin().from("galerie_items").insert(input).select().single();
-  if (error) return { data: null, error: error.message };
-  return { data: data as AdminGalerieItem, error: null };
-}
-
-export async function updateGalerieItem(id: string, input: GalerieItemInput): Promise<{ data: AdminGalerieItem | null; error: string | null }> {
-  const { data, error } = await admin().from("galerie_items").update(input).eq("id", id).select().single();
-  if (error) return { data: null, error: error.message };
-  return { data: data as AdminGalerieItem, error: null };
-}
-
-export async function deleteGalerieItem(id: string): Promise<{ error: string | null }> {
-  const { error } = await admin().from("galerie_items").delete().eq("id", id);
   return { error: error?.message ?? null };
 }
 

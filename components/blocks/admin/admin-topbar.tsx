@@ -16,7 +16,6 @@ import { createClient } from "@/lib/supabase/client";
 const BREADCRUMB_LABELS: Record<string, string> = {
   formations: "Formations",
   actualites: "Actualités",
-  galerie: "Galerie",
   temoignages: "Témoignages",
   partenaires: "Partenaires",
   campus: "Campus",

@@ -16,7 +16,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${SITE_URL}/formation-presentiel`, changeFrequency: "monthly", priority: 0.7 },
     { url: `${SITE_URL}/formation-distance`, changeFrequency: "monthly", priority: 0.7 },
     { url: `${SITE_URL}/actualites`, changeFrequency: "weekly", priority: 0.7 },
-    { url: `${SITE_URL}/galerie`, changeFrequency: "monthly", priority: 0.6 },
     { url: `${SITE_URL}/contact`, changeFrequency: "yearly", priority: 0.6 },
     { url: `${SITE_URL}/inscription`, changeFrequency: "yearly", priority: 0.8 },
     { url: `${SITE_URL}/devis`, changeFrequency: "yearly", priority: 0.7 },

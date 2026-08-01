@@ -2,7 +2,7 @@
 -- EFES « SAPIENTIA » — Bucket Storage « medias » (back-office)
 -- ============================================================
 -- Bucket public SÉPARÉ de « documents » pour les images du back-office
--- (actualités, galerie, logos partenaires, photos témoignages, campus).
+-- (actualités, logos partenaires, photos témoignages, campus).
 -- L'upload se fait via la route /api/admin/upload en utilisant la
 -- service role key côté serveur (createAdminClient), qui bypass le RLS.
 -- Aucune policy INSERT publique n'est définie : le navigateur admin

@@ -15,12 +15,14 @@ insert into public.formations (slug, titre, description, objectifs, debouches, c
   ('sciences-de-la-vie-et-de-la-terre', 'Sciences de la Vie et de la Terre (SVT)', 'Biologie, géologie et environnement au service de l''enseignement scientifique.', 'Observer, comprendre et enseigner le vivant et la Terre.', 'Enseignant de SVT, technicien en environnement, animateur scientifique.', 'Baccalauréat scientifique ; dossier de candidature.', 'Inscription en ligne, pièce d''identité, relevés de notes.', 'LES_DEUX', 'leaf', 9)
 on conflict (slug) do nothing;
 
--- Campus (Porto-Novo, Parakou, Savè, Abomey-Calavi)
-insert into public.campus (ville, adresse, telephone, email, latitude, longitude, description, ordre) values
-  ('Porto-Novo', 'Quartier Ouando, Porto-Novo', '+229 00 00 00 01', 'portonovo@efes-sapientia.bj', 6.4969, 2.6289, 'Campus principal de l''EFES « SAPIENTIA » à Porto-Novo, capitale politique.', 1),
-  ('Parakou', 'Quartier Arafat, Parakou', '+229 00 00 00 02', 'parakou@efes-sapientia.bj', 9.3372, 2.6148, 'Campus de Parakou, au cœur du nord du Bénin.', 2),
-  ('Savè', 'Route principale, Savè', '+229 00 00 00 03', 'save@efes-sapientia.bj', 8.3290, 2.4840, 'Nouveau site de Savè, en plein développement.', 3),
-  ('Abomey-Calavi', 'Zone universitaire, Abomey-Calavi', '+229 00 00 00 04', 'calavi@efes-sapientia.bj', 6.4485, 2.3560, 'Nouveau site d''Abomey-Calavi, proche de Cotonou.', 4)
+-- Campus (Porto-Novo, Parakou, Savè, Abomey-Calavi).
+-- Savè et Abomey-Calavi sont des sites non ouverts (actif = false) ; ils
+-- restent en base pour kunne être réactivés depuis /admin/campus.
+insert into public.campus (ville, adresse, telephone, email, latitude, longitude, description, ordre, actif) values
+  ('Porto-Novo', 'Quartier Ouando, Porto-Novo', '+229 00 00 00 01', 'portonovo@efes-sapientia.bj', 6.4969, 2.6289, 'Campus principal de l''EFES « SAPIENTIA » à Porto-Novo, capitale politique.', 1, true),
+  ('Parakou', 'Quartier Arafat, Parakou', '+229 00 00 00 02', 'parakou@efes-sapientia.bj', 9.3372, 2.6148, 'Campus de Parakou, au cœur du nord du Bénin.', 2, true),
+  ('Savè', 'Route principale, Savè', '+229 00 00 00 03', 'save@efes-sapientia.bj', 8.3290, 2.4840, 'Nouveau site de Savè, en plein développement.', 3, false),
+  ('Abomey-Calavi', 'Zone universitaire, Abomey-Calavi', '+229 00 00 00 04', 'calavi@efes-sapientia.bj', 6.4485, 2.3560, 'Nouveau site d''Abomey-Calavi, proche de Cotonou.', 4, false)
 on conflict (id) do nothing;
 
 -- Partenaires institutionnels
@@ -43,10 +45,3 @@ insert into public.actualites (slug, titre, extrait, contenu, date, type) values
   ('ouverture-site-save', 'Ouverture du site de Savè', 'Un nouveau campus ouvre à Savè pour la rentrée 2026.', 'L''EFES « SAPIENTIA » s''étend à Savè afin de rapprocher la formation des populations du centre du Bénin.', current_date - 7, 'NOUVELLE_FORMATION')
 on conflict (slug) do nothing;
 
--- Galerie (placeholders)
-insert into public.galerie_items (titre, type, url, vignette_url, categorie, ordre) values
-  ('Campus de Porto-Novo', 'PHOTO', '/images/galerie/campus-portonovo.svg', '/images/galerie/campus-portonovo.svg', 'CAMPUS', 1),
-  ('Salle de cours moderne', 'PHOTO', '/images/galerie/salle-cours.svg', '/images/galerie/salle-cours.svg', 'PEDAGOGIQUE', 2),
-  ('Remise des diplômes 2025', 'PHOTO', '/images/galerie/remise-diplomes.svg', '/images/galerie/remise-diplomes.svg', 'DIPLOMES', 3),
-  ('Travaux pratiques en laboratoire', 'PHOTO', '/images/galerie/laboratoire.svg', '/images/galerie/laboratoire.svg', 'PEDAGOGIQUE', 4)
-on conflict (id) do nothing;

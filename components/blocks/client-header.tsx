@@ -221,13 +221,19 @@ export function ClientHeader({
             })}
           </nav>
 
-          <div className="hidden lg:flex items-center gap-3">
+          <div className="hidden lg:flex items-center gap-2">
             <Link
               href="/connexion"
-              className="inline-flex shrink-0 items-center gap-2 h-11 px-5 rounded-full bg-gold text-navy font-semibold text-sm whitespace-nowrap hover:bg-gold-600 hover:-translate-y-0.5 shadow-premium transition-all duration-300"
+              className="inline-flex shrink-0 items-center gap-2 h-10 px-4 rounded-full bg-gold text-navy font-semibold text-sm whitespace-nowrap hover:bg-gold-600 hover:-translate-y-0.5 shadow-premium transition-all duration-300"
             >
               <User className="h-4 w-4" />
-              Espace étudiant
+              Se connecter
+            </Link>
+            <Link
+              href="/inscription"
+              className="inline-flex shrink-0 items-center h-10 px-4 rounded-full border border-gold text-gold font-semibold text-sm whitespace-nowrap hover:bg-gold hover:text-navy transition-all duration-200"
+            >
+              S'inscrire
             </Link>
           </div>
 
@@ -296,13 +302,21 @@ export function ClientHeader({
                   </Link>
                 );
               })}
-              <Link
-                href="/connexion"
-                className="mt-2 inline-flex items-center justify-center gap-2 h-12 rounded-full bg-gold text-navy font-semibold"
-              >
-                <User className="h-4 w-4" />
-                Espace étudiant
-              </Link>
+              <div className="mt-2 flex flex-col gap-2">
+                <Link
+                  href="/connexion"
+                  className="inline-flex items-center justify-center gap-2 h-12 rounded-full bg-gold text-navy font-semibold"
+                >
+                  <User className="h-4 w-4" />
+                  Se connecter
+                </Link>
+                <Link
+                  href="/inscription"
+                  className="inline-flex items-center justify-center h-12 rounded-full border border-gold text-gold font-semibold"
+                >
+                  S'inscrire
+                </Link>
+              </div>
             </nav>
           </div>
         )}

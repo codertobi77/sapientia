@@ -17,7 +17,6 @@ const informations = [
   { label: "Formation en présentiel", href: "/formation-presentiel" },
   { label: "Inscription en ligne", href: "/inscription" },
   { label: "Demande de devis", href: "/devis" },
-  { label: "Galerie", href: "/galerie" },
   { label: "Contact", href: "/contact" },
 ];
 

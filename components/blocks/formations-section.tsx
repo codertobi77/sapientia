@@ -47,13 +47,6 @@ function FormationCard({ formation }: { formation: Formation }) {
       <p className="mt-3 text-slate text-sm leading-relaxed flex-1">
         {formation.description ?? ""}
       </p>
-      <Link
-        href={`/formations/${formation.slug}`}
-        className="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-gold-600 hover:gap-2.5 transition-all"
-      >
-        En savoir plus
-        <ArrowRight className="h-4 w-4" />
-      </Link>
     </Card>
   );
 }

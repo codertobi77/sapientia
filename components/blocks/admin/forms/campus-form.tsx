@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { Loader2, Save, ArrowLeft } from "lucide-react";
 import { Input, Textarea, Label } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { Switch } from "@/components/ui/switch";
 import { ImageUpload } from "@/components/blocks/admin/image-upload";
 import type { AdminCampus, CampusInput } from "@/lib/data-admin";
 
@@ -20,6 +21,7 @@ export function CampusForm({ initial }: { initial?: AdminCampus }) {
     image_url: initial?.image_url ?? "",
     description: initial?.description ?? "",
     ordre: initial?.ordre ?? 0,
+    actif: initial?.actif ?? true,
   });
   const [loading, setLoading] = React.useState(false);
   const [error, setError] = React.useState("");
@@ -42,6 +44,7 @@ export function CampusForm({ initial }: { initial?: AdminCampus }) {
         image_url: form.image_url || null,
         description: form.description || null,
         ordre: form.ordre,
+        actif: form.actif,
       };
       if (payload.latitude != null && Number.isNaN(payload.latitude)) throw new Error("Latitude invalide");
       if (payload.longitude != null && Number.isNaN(payload.longitude)) throw new Error("Longitude invalide");
@@ -116,6 +119,17 @@ export function CampusForm({ initial }: { initial?: AdminCampus }) {
       <div>
         <Label htmlFor="ordre">Ordre</Label>
         <Input id="ordre" type="number" value={form.ordre} onChange={(e) => set("ordre", Number(e.target.value))} />
+      </div>
+
+      <div className="flex items-center gap-3">
+        <Switch
+          id="actif"
+          checked={form.actif}
+          onChange={(e) => set("actif", e.target.checked)}
+        />
+        <Label htmlFor="actif" className="mb-0">
+          Campus actif (affiché publiquement)
+        </Label>
       </div>
 
       <div>

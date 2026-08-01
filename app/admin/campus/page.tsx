@@ -4,6 +4,7 @@ import { requireAdminOrRedirect } from "@/lib/auth-admin";
 import { listCampus } from "@/lib/data-admin";
 import { DataTable, type Column } from "@/components/blocks/admin/data-table";
 import { AdminDeleteButton } from "@/components/blocks/admin/admin-delete-button";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import type { AdminCampus } from "@/lib/data-admin";
 
@@ -28,6 +29,17 @@ export default async function AdminCampusPage() {
     { key: "adresse", header: "Adresse", cell: (r) => <span className="text-muted">{r.adresse ?? "—"}</span> },
     { key: "telephone", header: "Téléphone", className: "w-36", cell: (r) => <span className="text-muted">{r.telephone ?? "—"}</span> },
     { key: "email", header: "E-mail", className: "w-48", cell: (r) => <span className="text-muted">{r.email ?? "—"}</span> },
+    {
+      key: "actif",
+      header: "Statut",
+      className: "w-28",
+      cell: (r) =>
+        r.actif ? (
+          <Badge variant="navyLight">Actif</Badge>
+        ) : (
+          <Badge variant="goldLight">Non ouvert</Badge>
+        ),
+    },
     {
       key: "actions",
       header: "",
