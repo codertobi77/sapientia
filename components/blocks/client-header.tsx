@@ -88,7 +88,12 @@ export function ClientHeader({
   return (
     <header className="sticky top-0 z-50">
       {/* Top bar */}
-      <div className="bg-navy text-white/90 text-sm">
+      <div
+        className={cn(
+          "bg-navy text-white/90 text-sm transition-all duration-300 overflow-hidden",
+          scrolled ? "h-0 opacity-0" : "h-9 opacity-100"
+        )}
+      >
         <div className="container-site flex h-9 items-center justify-between gap-4">
           <p className="hidden sm:block truncate">
             {identity.name} — {identity.subtitle}
@@ -142,7 +147,7 @@ export function ClientHeader({
           scrolled && "shadow-premium",
         )}
       >
-        <div className="container-site flex h-20 lg:h-[88px] items-center justify-between gap-4">
+        <div className="container-site flex h-16 lg:h-[72px] items-center justify-between gap-4">
           <LogoView logo={logo} />
 
           <nav className="hidden lg:flex items-center gap-0.5">

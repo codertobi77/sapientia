@@ -15,7 +15,7 @@ const icons: Record<string, LucideIcon> = {
 export async function StatsBand() {
   const stats = await getStats();
   return (
-    <div className="container-site -mt-14 lg:-mt-16 relative z-20">
+    <div className="container-site py-12 lg:py-16 relative z-20">
       <div className="rounded-3xl bg-white shadow-premium-lg border border-border grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 divide-x divide-border overflow-hidden">
         {stats.map((s: Stat, i: number) => {
           const Icon = icons[s.icon] ?? Award;

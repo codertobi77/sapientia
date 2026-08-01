@@ -7,8 +7,8 @@ export function Section({
   ...props
 }: React.HTMLAttributes<HTMLElement>) {
   return (
-    <section className={cn("py-12 lg:py-16", className)} {...props}>
-      <div className="container-site">{children}</div>
+    <section className={cn("py-12 lg:py-16 relative border-b border-navy/5 last:border-b-0", className)} {...props}>
+      <div className="container-site relative z-10">{children}</div>
     </section>
   );
 }

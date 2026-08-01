@@ -4,37 +4,34 @@ import { MonitorPlay, School, GraduationCap, Award } from "lucide-react";
 
 export function Hero() {
   return (
-    <section className="relative bg-navy text-white overflow-hidden min-h-[580px] lg:min-h-[660px]">
+    <section className="relative bg-navy text-white overflow-hidden min-h-[calc(100vh-108px)] flex items-center">
       {/* Image de l'école en arrière-plan côté droit */}
-      <div className="absolute inset-0 lg:left-[42%]">
+      <div className="absolute inset-0 lg:left-[35%]">
         <Image
           src="/students-campus.png"
           alt="Campus EFES SAPIENTIA"
           fill
-          className="object-cover object-center"
+          className="object-cover object-[75%_center] lg:object-right"
           priority
-          sizes="(max-width: 1024px) 100vw, 60vw"
+          sizes="(max-width: 1024px) 100vw, 65vw"
         />
         {/* Gradient overlay pour lisibilité */}
+        {/* Gradient overlay pour lisibilité */}
         <div
-          className="absolute inset-0 bg-gradient-to-r from-navy via-navy/80 to-navy/30 lg:via-navy/60 lg:to-transparent"
-          aria-hidden
-        />
-        <div
-          className="absolute inset-0 bg-navy/50 lg:hidden"
+          className="absolute inset-0 bg-gradient-to-r from-navy via-navy/70 to-navy/10 lg:from-navy lg:via-navy/40 lg:to-transparent"
           aria-hidden
         />
       </div>
 
-      <div className="container-site relative z-10 grid lg:grid-cols-5 min-h-[580px] lg:min-h-[660px]">
+      <div className="container-site relative z-10 grid lg:grid-cols-5 w-full">
         {/* Colonne gauche (60%) */}
-        <div className="lg:col-span-3 flex flex-col justify-center py-16 lg:py-20 pr-0 lg:pr-8">
+        <div className="lg:col-span-3 flex flex-col justify-center py-8 lg:py-12 pr-0 lg:pr-8">
           {/* Titre principal */}
           <h1 className="font-display text-[2.5rem] leading-[1.1] sm:text-5xl lg:text-[2.75rem] xl:text-[3.25rem] font-bold sm:leading-[1.05] text-pretty max-w-lg lg:max-w-xl">
             Former aujourd&apos;hui les éducateurs de <span className="text-gold">demain</span>
           </h1>
 
-          <p className="mt-5 text-base text-white/80 leading-relaxed max-w-sm">
+          <p className="mt-5 text-base sm:text-lg text-white/80 leading-relaxed max-w-xl">
             EFES SAPIENTIA est un établissement privé spécialisé dans la
             formation des enseignants compétents, éthiques et innovants.
           </p>
