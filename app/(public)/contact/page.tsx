@@ -11,9 +11,11 @@ import { ContactForm } from "@/components/blocks/contact-form";
 export async function generateMetadata(): Promise<Metadata> {
   const identity = await getIdentity();
   const telWord = identity.phones.length > 1 ? "téléphones" : "téléphone";
+  const adrWord = identity.addresses.length > 1 ? "adresses" : "adresse";
+  const addressesInline = identity.addresses.join(", ");
   return {
     title: `Contact — ${identity.name}`,
-    description: `Contactez ${identity.name} : adresse, ${telWord}, e-mail, WhatsApp et réseaux sociaux. ${identity.address}.`,
+    description: `Contactez ${identity.name} : ${adrWord}, ${telWord}, e-mail, WhatsApp et réseaux sociaux. ${addressesInline}.`,
   };
 }
 
@@ -67,8 +69,12 @@ export default async function ContactPage() {
                     <MapPin className="h-5 w-5" />
                   </span>
                   <div>
-                    <p className="text-sm font-semibold text-navy">Adresse</p>
-                    <p className="text-slate">{identity.address}</p>
+                    <p className="text-sm font-semibold text-navy">Adresse{identity.addresses.length > 1 ? "s" : ""}</p>
+                    <div className="text-slate flex flex-col gap-0.5">
+                      {identity.addresses.map((a) => (
+                        <p key={a}>{a}</p>
+                      ))}
+                    </div>
                   </div>
                 </li>
                 <li className="flex items-start gap-3">

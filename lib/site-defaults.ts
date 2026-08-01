@@ -14,7 +14,7 @@ export type SiteIdentity = {
   subtitle: string;
   email: string;
   phones: string[];
-  address: string;
+  addresses: string[];
   whatsapp: string;
 };
 
@@ -29,6 +29,22 @@ export function normalizePhones(input: unknown): string[] {
   }
   if (typeof input === "string" && input.trim()) {
     return input.split(/[\/\n,;]/).map((p) => p.trim()).filter(Boolean);
+  }
+  return [];
+}
+
+/**
+ * Normalise une valeur `addresses` potentiellement héritée (ancienne colonne
+ * `address: string`, ou tableau déjà propre) en tableau d'adresses non vides.
+ * Tolérante pour la migration depuis l'ancien schéma. Les sauts de ligne
+ * servent aussi de séparateurs.
+ */
+export function normalizeAddresses(input: unknown): string[] {
+  if (Array.isArray(input)) {
+    return input.map((p) => String(p).trim()).filter(Boolean);
+  }
+  if (typeof input === "string" && input.trim()) {
+    return input.split(/\n/).map((p) => p.trim()).filter(Boolean);
   }
   return [];
 }
@@ -72,7 +88,7 @@ export const DEFAULT_IDENTITY: SiteIdentity = {
     "+229 95428013",
     "+229 06060372",
   ],
-  address: "Porto-Novo, Bénin",
+  addresses: ["Porto-Novo, Bénin"],
   whatsapp: "229016000376",
 };
 

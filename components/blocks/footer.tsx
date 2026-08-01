@@ -61,7 +61,11 @@ export async function Footer() {
           <ul className="space-y-4 text-white/80">
             <li className="flex items-start gap-3">
               <MapPin className="h-5 w-5 text-gold shrink-0 mt-0.5" />
-              <span>{identity.address}</span>
+              <span className="flex flex-col gap-0.5">
+                {identity.addresses.map((a) => (
+                  <span key={a}>{a}</span>
+                ))}
+              </span>
             </li>
             <li className="flex items-start gap-3">
               <Phone className="h-5 w-5 text-gold shrink-0 mt-0.5" />

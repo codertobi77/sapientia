@@ -6,6 +6,7 @@ import {
   DEFAULT_NAV,
   DEFAULT_LOGO,
   normalizePhones,
+  normalizeAddresses,
   type SiteIdentity,
   type SiteSocials,
   type Stat,
@@ -55,17 +56,22 @@ export async function getSettingsAdmin(): Promise<AdminSettings> {
     map[row.key] = row.value;
   }
 
-  // Fusion tolérante : accepte l'ancien schéma `phone: string` (DB non migrée)
-  // et le nouveau `phones: string[]`. `normalizePhones` gère les deux.
-  const rawIdentity = map.identity as Partial<SiteIdentity> & { phone?: string } | undefined;
+  // Fusion tolérante : accepte l'ancien schéma `phone: string` / `address: string`
+  // (DB non migrée) et le nouveau `phones: string[]` / `addresses: string[]`.
+  // `normalizePhones` / `normalizeAddresses` gèrent les deux formes.
+  const rawIdentity =
+    map.identity as Partial<SiteIdentity> & { phone?: string; address?: string } | undefined;
   const rawPhones = normalizePhones(rawIdentity?.phones);
+  const rawAddresses = normalizeAddresses(rawIdentity?.addresses);
   const identity: SiteIdentity = {
     ...DEFAULT_IDENTITY,
     ...(rawIdentity ?? {}),
     phones: rawPhones.length > 0 ? rawPhones : DEFAULT_IDENTITY.phones,
+    addresses: rawAddresses.length > 0 ? rawAddresses : DEFAULT_IDENTITY.addresses,
   };
-  // Retire l'éventuelle clé héritée `phone` pour ne pas polluer le formulaire.
-  delete (identity as Partial<SiteIdentity> & { phone?: string }).phone;
+  // Retire les éventuelles clés héritées pour ne pas polluer le formulaire.
+  delete (identity as Partial<SiteIdentity> & { phone?: string; address?: string }).phone;
+  delete (identity as Partial<SiteIdentity> & { phone?: string; address?: string }).address;
 
   return {
     identity,

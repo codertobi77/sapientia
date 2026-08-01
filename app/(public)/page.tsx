@@ -46,7 +46,7 @@ export default async function HomePage() {
     telephone: identity.phones.join(", "),
     address: {
       "@type": "PostalAddress",
-      streetAddress: "Quartier Ouando",
+      streetAddress: identity.addresses[0] ?? "",
       addressLocality: "Porto-Novo",
       addressCountry: "BJ",
     },

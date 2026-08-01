@@ -24,7 +24,7 @@ export async function generateMetadata(): Promise<Metadata> {
       default: titleDefault,
       template: `%s · ${siteName}`,
     },
-    description: `${identity.name}, ${identity.subtitle}. ${identity.address}.`,
+    description: `${identity.name}, ${identity.subtitle}. ${identity.addresses.join(", ")}.`,
     metadataBase: new URL("https://efes-sapientia.bj"),
     openGraph: {
       type: "website",

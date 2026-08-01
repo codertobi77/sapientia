@@ -22,10 +22,19 @@ export function SettingsIdentityForm({ initial }: { initial: SiteIdentity }) {
     setLoading(true);
     setError("");
     setOk("");
-    // Nettoie les lignes vides avant envoi (le validateur exige >= 1).
-    const payload: SiteIdentity = { ...form, phones: form.phones.map((p) => p.trim()).filter(Boolean) };
+    // Nettoie les lignes vides avant envoi (le validateur exige >= 1 par tableau).
+    const payload: SiteIdentity = {
+      ...form,
+      phones: form.phones.map((p) => p.trim()).filter(Boolean),
+      addresses: form.addresses.map((a) => a.trim()).filter(Boolean),
+    };
     if (payload.phones.length === 0) {
       setError("Au moins un numéro de téléphone est requis.");
+      setLoading(false);
+      return;
+    }
+    if (payload.addresses.length === 0) {
+      setError("Au moins une adresse est requise.");
       setLoading(false);
       return;
     }
@@ -122,9 +131,46 @@ export function SettingsIdentityForm({ initial }: { initial: SiteIdentity }) {
       </div>
 
       <div className="grid sm:grid-cols-2 gap-5">
-        <div>
-          <Label htmlFor="address">Adresse</Label>
-          <Input id="address" value={form.address} onChange={(e) => set("address", e.target.value)} required />
+        <div className="sm:col-span-1">
+          <Label htmlFor="address-0">Adresses</Label>
+          <div className="space-y-2">
+            {form.addresses.map((a, i) => (
+              <div key={i} className="flex items-center gap-2">
+                <Input
+                  id={`address-${i}`}
+                  value={a}
+                  onChange={(e) => {
+                    const next = form.addresses.slice();
+                    next[i] = e.target.value;
+                    set("addresses", next);
+                  }}
+                  placeholder="Porto-Novo, Bénin"
+                  required={i === 0}
+                />
+                <Button
+                  type="button"
+                  variant="ghost"
+                  size="sm"
+                  aria-label="Supprimer cette adresse"
+                  disabled={form.addresses.length <= 1}
+                  onClick={() => set("addresses", form.addresses.filter((_, j) => j !== i))}
+                  className="shrink-0"
+                >
+                  <Trash2 className="h-4 w-4" />
+                </Button>
+              </div>
+            ))}
+            <Button
+              type="button"
+              variant="outline"
+              size="sm"
+              onClick={() => set("addresses", [...form.addresses, ""])}
+              className="mt-1"
+            >
+              <Plus className="h-4 w-4" />
+              Ajouter une adresse
+            </Button>
+          </div>
         </div>
         <div>
           <Label htmlFor="whatsapp">WhatsApp (numéro, sans +)</Label>

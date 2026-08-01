@@ -8,6 +8,7 @@ import {
   DEFAULT_LOGO,
   buildSocialLinks,
   normalizePhones,
+  normalizeAddresses,
   type SiteIdentity,
   type SiteSocials,
   type Stat,
@@ -95,10 +96,16 @@ export async function getSettings(): Promise<SiteSettings> {
   );
   const fallbackPhones =
     rawPhones.length > 0 ? rawPhones : DEFAULT_IDENTITY.phones;
+  const rawAddresses = normalizeAddresses(
+    (raw.identity as Partial<SiteIdentity> & { address?: string } | undefined)?.addresses,
+  );
+  const fallbackAddresses =
+    rawAddresses.length > 0 ? rawAddresses : DEFAULT_IDENTITY.addresses;
   const identity: SiteIdentity = {
     ...DEFAULT_IDENTITY,
     ...raw.identity,
     phones: fallbackPhones,
+    addresses: fallbackAddresses,
   };
   const socials: SiteSocials = { ...DEFAULT_SOCIALS, ...raw.socials };
   return {

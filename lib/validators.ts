@@ -47,7 +47,9 @@ export const settingsIdentitySchema = z.object({
   phones: z
     .array(z.string().min(4, "Numéro trop court").trim())
     .min(1, "Au moins un numéro requis"),
-  address: z.string().min(2, "Adresse requise").trim(),
+  addresses: z
+    .array(z.string().min(2, "Adresse trop courte").trim())
+    .min(1, "Au moins une adresse requise"),
   whatsapp: z.string().min(4, "Numéro WhatsApp requis").trim(),
 });
 
