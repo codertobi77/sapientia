@@ -48,6 +48,7 @@ export default function FormationDistancePage() {
           </>
         }
         description="Une expérience d'apprentissage complète et flexible, accessible où que vous soyez."
+        imageSrc="/elearning-student.png"
       >
         <div className="flex flex-wrap items-center gap-3">
           <Badge variant="gold">

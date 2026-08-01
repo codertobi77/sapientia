@@ -46,6 +46,7 @@ export default async function FormationPresentielPage() {
           </>
         }
         description="Apprendre au contact des enseignants et des pairs, sur nos campus équipés et accueillants."
+        imageSrc="/formation-presentiel.png"
       />
 
       {/* Présentation + organisation */}

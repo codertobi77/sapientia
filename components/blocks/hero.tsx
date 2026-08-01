@@ -8,7 +8,7 @@ export function Hero() {
       {/* Image de l'école en arrière-plan côté droit */}
       <div className="absolute inset-0 lg:left-[42%]">
         <Image
-          src="/ecole-hero.jpg"
+          src="/students-campus.png"
           alt="Campus EFES SAPIENTIA"
           fill
           className="object-cover object-center"

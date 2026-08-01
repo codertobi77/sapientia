@@ -38,6 +38,7 @@ export default function QuiSommesNousPage() {
           </>
         }
         description="L'EFES « SAPIENTIA » réunit des enseignants engagés pour former la nouvelle génération d'éducateurs au Bénin, sur 4 campus et via une plateforme e-learning."
+        imageSrc="/images/1785609397909.jpg"
       />
 
       {/* 2 colonnes : text + carte membres fondateurs */}
@@ -66,10 +67,13 @@ export default function QuiSommesNousPage() {
           {/* Carte navy membres fondateurs avec gros 17 */}
           <Card className="bg-navy text-white border-navy p-0 overflow-hidden animate-fade-in-up">
             <div className="relative p-10 lg:p-14 h-full">
-              <div
-                className="absolute inset-0 bg-gradient-to-br from-navy via-navy-700 to-gold/20"
-                aria-hidden
-              />
+              <div className="absolute inset-0">
+                <img src="/images/1785609452235.jpg" alt="" className="absolute inset-0 h-full w-full object-cover opacity-60" />
+                <div
+                  className="absolute inset-0 bg-gradient-to-br from-navy/90 via-navy/60 to-gold/20"
+                  aria-hidden
+                />
+              </div>
               <div className="relative text-center">
                 <p className="text-xs font-bold uppercase tracking-[0.2em] text-gold mb-4">
                   Membres fondateurs

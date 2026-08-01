@@ -24,6 +24,7 @@ export default async function ActualitesPage() {
           </>
         }
         description="Suivez la vie académique, les événements et les partenariats de l'EFES « SAPIENTIA »."
+        imageSrc="/images/1785609503889.jpg"
       />
       <Section>
         <ActualitesList actualites={actualites} types={types} />

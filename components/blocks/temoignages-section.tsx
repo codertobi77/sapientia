@@ -1,9 +1,15 @@
 import { Quote } from "lucide-react";
+import Image from "next/image";
 import { Section, SectionHeading } from "@/components/blocks/section";
 import { Card } from "@/components/ui/card";
 import type { Temoignage } from "@/lib/data";
 
-const avatars = ["#0A2345", "#143B6E", "#0f2e57"];
+const AVATAR_IMAGES = [
+  "/images/1785609516480.jpg",
+  "/images/1785609522900.jpg",
+  "/images/1785609538735.jpg",
+  "/images/1785609558467.jpg"
+];
 
 export function TemoignagesSection({ temoignages }: { temoignages: Temoignage[] }) {
   return (
@@ -23,13 +29,9 @@ export function TemoignagesSection({ temoignages }: { temoignages: Temoignage[] 
             <Quote className="h-9 w-9 text-gold mb-5" />
             <p className="text-white/85 leading-relaxed text-lg">« {t.contenu} »</p>
             <div className="mt-7 flex items-center gap-4">
-              <span
-                className="h-12 w-12 rounded-full flex items-center justify-center font-bold text-white"
-                style={{ backgroundColor: avatars[i % avatars.length] }}
-                aria-hidden
-              >
-                {t.auteur.charAt(0)}
-              </span>
+              <div className="relative h-12 w-12 rounded-full overflow-hidden shrink-0 border-2 border-white/20 bg-navy">
+                <Image src={t.photo_url || AVATAR_IMAGES[i % AVATAR_IMAGES.length]} alt={t.auteur} fill className="object-cover" />
+              </div>
               <div>
                 <p className="font-semibold">{t.auteur}</p>
                 <p className="text-sm text-white/60">{t.role}</p>

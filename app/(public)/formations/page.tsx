@@ -33,6 +33,7 @@ export default async function FormationsPage() {
           </>
         }
         description="Des formations disciplinaires exigeantes pour préparer les enseignants de demain, en présentiel et à distance."
+        imageSrc="/images/1785609404565.jpg"
       />
 
       <Section>
