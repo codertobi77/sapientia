@@ -147,7 +147,7 @@ export default function FormationDistancePage() {
       </Section>
 
       {/* Bandeau avantages navy */}
-      <section className="bg-navy text-white py-20 lg:py-28">
+      <section className="bg-navy text-white py-12 lg:py-16">
         <div className="container-site grid lg:grid-cols-2 gap-12 items-center">
           <div>
             <span className="inline-block text-xs font-bold uppercase tracking-[0.2em] text-gold mb-3">

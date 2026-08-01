@@ -37,7 +37,7 @@ export default async function ActualiteDetailPage({
     <>
       {/* En-tête */}
       <section className="bg-navy text-white">
-        <div className="container-site py-16 lg:py-20">
+        <div className="container-site py-12 lg:py-16">
           <Badge variant="gold" className="mb-4">
             {actualiteTypeLabel(actualite.type)}
           </Badge>

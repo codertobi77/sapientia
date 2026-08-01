@@ -133,7 +133,7 @@ export default function QuiSommesNousPage() {
       </Section>
 
       {/* 5 stats */}
-      <Section className="py-16 lg:py-20">
+      <Section className="py-10 lg:py-12">
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
           {stats.map(({ value, label, icon: Icon }) => (
             <Card key={label} className="p-6 text-center">
@@ -187,7 +187,7 @@ export default function QuiSommesNousPage() {
       </Section>
 
       {/* 5 piliers bandeau navy */}
-      <section className="bg-navy text-white py-20 lg:py-28">
+      <section className="bg-navy text-white py-12 lg:py-16">
         <div className="container-site">
           <SectionHeading
             light

@@ -7,7 +7,7 @@ export function Section({
   ...props
 }: React.HTMLAttributes<HTMLElement>) {
   return (
-    <section className={cn("py-20 lg:py-28", className)} {...props}>
+    <section className={cn("py-12 lg:py-16", className)} {...props}>
       <div className="container-site">{children}</div>
     </section>
   );
@@ -29,7 +29,7 @@ export function SectionHeading({
   return (
     <div
       className={cn(
-        "max-w-2xl",
+        "max-w-3xl",
         align === "center" && "mx-auto text-center",
         align === "left" && "text-left",
       )}
@@ -41,7 +41,7 @@ export function SectionHeading({
       )}
       <h2
         className={cn(
-          "text-3xl lg:text-4xl font-bold leading-tight",
+          "text-3xl lg:text-4xl font-bold leading-tight text-pretty",
           light ? "text-white" : "text-navy",
         )}
       >
@@ -50,7 +50,7 @@ export function SectionHeading({
       {description && (
         <p
           className={cn(
-            "mt-4 text-lg leading-relaxed",
+            "mt-4 text-lg leading-relaxed text-pretty",
             light ? "text-white/80" : "text-slate",
           )}
         >

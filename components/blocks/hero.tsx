@@ -27,14 +27,11 @@ export function Hero() {
       </div>
 
       <div className="container-site relative z-10 grid lg:grid-cols-5 min-h-[580px] lg:min-h-[660px]">
-        {/* Colonne gauche (42%) */}
-        <div className="lg:col-span-2 flex flex-col justify-center py-16 lg:py-20 pr-0 lg:pr-8">
+        {/* Colonne gauche (60%) */}
+        <div className="lg:col-span-3 flex flex-col justify-center py-16 lg:py-20 pr-0 lg:pr-8">
           {/* Titre principal */}
-          <h1 className="font-display text-4xl lg:text-5xl xl:text-[3.25rem] font-bold leading-[1.05] text-balance">
-            Former aujourd&apos;hui
-            <br />
-            les éducateurs de{" "}
-            <span className="text-gold">demain</span>
+          <h1 className="font-display text-[2.5rem] leading-[1.1] sm:text-5xl lg:text-[2.75rem] xl:text-[3.25rem] font-bold sm:leading-[1.05] text-pretty max-w-lg lg:max-w-xl">
+            Former aujourd&apos;hui les éducateurs de <span className="text-gold">demain</span>
           </h1>
 
           <p className="mt-5 text-base text-white/80 leading-relaxed max-w-sm">
@@ -54,7 +51,7 @@ export function Hero() {
           </div>
 
           {/* Cartes flottantes formation */}
-          <div className="mt-8 grid grid-cols-2 gap-3 max-w-sm">
+          <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-3 max-w-sm sm:max-w-md">
             <Link
               href="/formation-distance"
               className="group rounded-2xl bg-white/10 hover:bg-white/20 border border-white/15 p-4 transition-all duration-200 hover:-translate-y-0.5"
@@ -90,7 +87,7 @@ export function Hero() {
         </div>
 
         {/* Colonne droite vide — la photo occupe cet espace en background */}
-        <div className="hidden lg:block lg:col-span-3" aria-hidden />
+        <div className="hidden lg:block lg:col-span-2" aria-hidden />
       </div>
     </section>
   );
