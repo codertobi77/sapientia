@@ -44,7 +44,9 @@ export const settingsIdentitySchema = z.object({
   shortName: z.string().min(2, "Nom court requis").trim(),
   subtitle: z.string().trim().default(""),
   email: emailSchema,
-  phone: z.string().min(4, "Téléphone requis").trim(),
+  phones: z
+    .array(z.string().min(4, "Numéro trop court").trim())
+    .min(1, "Au moins un numéro requis"),
   address: z.string().min(2, "Adresse requise").trim(),
   whatsapp: z.string().min(4, "Numéro WhatsApp requis").trim(),
 });

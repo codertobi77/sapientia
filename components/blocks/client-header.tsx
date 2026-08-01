@@ -7,6 +7,7 @@ import { Menu, X, User, Mail, Phone, ChevronDown } from "lucide-react";
 import { LogoView } from "@/components/blocks/logo";
 import { SOCIAL_ICONS } from "@/components/blocks/social-icons";
 import { cn } from "@/lib/utils";
+import { telHref } from "@/lib/site-defaults";
 import type {
   SiteIdentity,
   NavItem,
@@ -100,13 +101,19 @@ export function ClientHeader({
               <Mail className="h-3.5 w-3.5" />
               {identity.email}
             </a>
-            <a
-              href={`tel:${identity.phone.replace(/\s/g, "")}`}
-              className="hidden md:inline-flex items-center gap-1.5 hover:text-gold transition-colors"
-            >
-              <Phone className="h-3.5 w-3.5" />
-              {identity.phone}
-            </a>
+            <span className="hidden md:inline-flex items-center gap-1.5">
+              <Phone className="h-3.5 w-3.5 shrink-0" />
+              <span className="flex flex-wrap items-center gap-x-1">
+                {identity.phones.map((p, i) => (
+                  <span key={p} className="inline-flex items-center gap-x-0.5">
+                    {i > 0 && <span aria-hidden className="text-white/40">·</span>}
+                    <a href={telHref(p)} className="hover:text-gold transition-colors">
+                      {p}
+                    </a>
+                  </span>
+                ))}
+              </span>
+            </span>
             <div className="flex items-center gap-2.5">
               {socialLinks.map(({ href, key, label }) => {
                 const Icon = SOCIAL_ICONS[key];

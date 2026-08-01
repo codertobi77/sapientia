@@ -4,14 +4,16 @@ import { PageHero } from "@/components/blocks/page-hero";
 import { Section } from "@/components/blocks/section";
 import { Card } from "@/components/ui/card";
 import { getIdentity, getSocials } from "@/lib/settings";
+import { telHref } from "@/lib/site-defaults";
 import { SOCIAL_ICONS } from "@/components/blocks/social-icons";
 import { ContactForm } from "@/components/blocks/contact-form";
 
 export async function generateMetadata(): Promise<Metadata> {
   const identity = await getIdentity();
+  const telWord = identity.phones.length > 1 ? "téléphones" : "téléphone";
   return {
     title: `Contact — ${identity.name}`,
-    description: `Contactez ${identity.name} : adresse, téléphone, e-mail, WhatsApp et réseaux sociaux. ${identity.address}.`,
+    description: `Contactez ${identity.name} : adresse, ${telWord}, e-mail, WhatsApp et réseaux sociaux. ${identity.address}.`,
   };
 }
 
@@ -74,10 +76,17 @@ export default async function ContactPage() {
                     <Phone className="h-5 w-5" />
                   </span>
                   <div>
-                    <p className="text-sm font-semibold text-navy">Téléphone</p>
-                    <a href={`tel:${identity.phone.replace(/\s/g, "")}`} className="text-slate hover:text-gold transition-colors">
-                      {identity.phone}
-                    </a>
+                    <p className="text-sm font-semibold text-navy">Téléphone{identity.phones.length > 1 ? "s" : ""}</p>
+                    <p className="text-slate flex flex-wrap items-center gap-x-1.5 gap-y-0.5">
+                      {identity.phones.map((p, i) => (
+                        <span key={p} className="inline-flex items-center gap-x-0.5">
+                          {i > 0 && <span aria-hidden className="text-slate/40">·</span>}
+                          <a href={telHref(p)} className="hover:text-gold transition-colors">
+                            {p}
+                          </a>
+                        </span>
+                      ))}
+                    </p>
                   </div>
                 </li>
                 <li className="flex items-start gap-3">

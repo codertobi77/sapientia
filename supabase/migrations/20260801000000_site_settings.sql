@@ -43,7 +43,7 @@ create policy "admin site settings" on public.site_settings
 -- ============================================================
 
 insert into public.site_settings (key, value) values
-  ('identity', '{"name":"EFES SAPIENTIA","shortName":"SAPIENTIA","subtitle":"L''excellence dans la formation des enseignants","email":"efesapientia@yahoo.fr","phone":"+229 0160600376/60600385/95428013/60600372","address":"Porto-Novo, Bénin","whatsapp":"229016000376"}'::jsonb)
+  ('identity', '{"name":"EFES SAPIENTIA","shortName":"SAPIENTIA","subtitle":"L''excellence dans la formation des enseignants","email":"efesapientia@yahoo.fr","phones":["+229 0160600376","+229 06060385","+229 95428013","+229 06060372"],"address":"Porto-Novo, Bénin","whatsapp":"229016000376"}'::jsonb)
 on conflict (key) do nothing;
 
 insert into public.site_settings (key, value) values

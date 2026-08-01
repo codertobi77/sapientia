@@ -13,10 +13,25 @@ export type SiteIdentity = {
   shortName: string;
   subtitle: string;
   email: string;
-  phone: string;
+  phones: string[];
   address: string;
   whatsapp: string;
 };
+
+/**
+ * Normalise une valeur `phones` potentiellement héritée (ancienne colonne
+ * `phone: string` slash-séparée, ou tableau déjà propre) en tableau de
+ * numéros non vides. Tolérante pour la migration depuis l'ancien schéma.
+ */
+export function normalizePhones(input: unknown): string[] {
+  if (Array.isArray(input)) {
+    return input.map((p) => String(p).trim()).filter(Boolean);
+  }
+  if (typeof input === "string" && input.trim()) {
+    return input.split(/[\/\n,;]/).map((p) => p.trim()).filter(Boolean);
+  }
+  return [];
+}
 
 export type SocialKey = "facebook" | "instagram" | "linkedin" | "youtube";
 export type SocialLink = {
@@ -51,7 +66,12 @@ export const DEFAULT_IDENTITY: SiteIdentity = {
   shortName: "SAPIENTIA",
   subtitle: "L'excellence dans la formation des enseignants",
   email: "efesapientia@yahoo.fr",
-  phone: "+229 0160600376/60600385/95428013/60600372",
+  phones: [
+    "+229 0160600376",
+    "+229 06060385",
+    "+229 95428013",
+    "+229 06060372",
+  ],
   address: "Porto-Novo, Bénin",
   whatsapp: "229016000376",
 };
@@ -105,4 +125,12 @@ export function buildSocialLinks(socials: SiteSocials): SocialLink[] {
       key,
       label: SOCIAL_LABELS[key],
     }));
+}
+
+/**
+ * Construit un `href` `tel:` valide (sans espaces) à partir d'un numéro
+ * affiché. Utilisé par le header, le footer et la page contact.
+ */
+export function telHref(phone: string): string {
+  return `tel:${phone.replace(/[\s\/]/g, "")}`;
 }

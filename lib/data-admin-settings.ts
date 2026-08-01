@@ -5,6 +5,7 @@ import {
   DEFAULT_STATS,
   DEFAULT_NAV,
   DEFAULT_LOGO,
+  normalizePhones,
   type SiteIdentity,
   type SiteSocials,
   type Stat,
@@ -54,8 +55,20 @@ export async function getSettingsAdmin(): Promise<AdminSettings> {
     map[row.key] = row.value;
   }
 
+  // Fusion tolérante : accepte l'ancien schéma `phone: string` (DB non migrée)
+  // et le nouveau `phones: string[]`. `normalizePhones` gère les deux.
+  const rawIdentity = map.identity as Partial<SiteIdentity> & { phone?: string } | undefined;
+  const rawPhones = normalizePhones(rawIdentity?.phones);
+  const identity: SiteIdentity = {
+    ...DEFAULT_IDENTITY,
+    ...(rawIdentity ?? {}),
+    phones: rawPhones.length > 0 ? rawPhones : DEFAULT_IDENTITY.phones,
+  };
+  // Retire l'éventuelle clé héritée `phone` pour ne pas polluer le formulaire.
+  delete (identity as Partial<SiteIdentity> & { phone?: string }).phone;
+
   return {
-    identity: { ...DEFAULT_IDENTITY, ...(map.identity as Partial<SiteIdentity> ?? {}) },
+    identity,
     socials: { ...DEFAULT_SOCIALS, ...(map.socials as Partial<SiteSocials> ?? {}) },
     stats: Array.isArray(map.stats) && (map.stats as Stat[]).length
       ? (map.stats as Stat[])

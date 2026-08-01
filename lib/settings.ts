@@ -7,6 +7,7 @@ import {
   DEFAULT_NAV,
   DEFAULT_LOGO,
   buildSocialLinks,
+  normalizePhones,
   type SiteIdentity,
   type SiteSocials,
   type Stat,
@@ -87,7 +88,18 @@ export type SiteSettings = {
 
 export async function getSettings(): Promise<SiteSettings> {
   const raw = await getCachedSettings();
-  const identity: SiteIdentity = { ...DEFAULT_IDENTITY, ...raw.identity };
+  // Fusion tolérante : accepte l'ancien schéma `phone: string` (DB non migrée)
+  // et le nouveau `phones: string[]`. `normalizePhones` gère les deux.
+  const rawPhones = normalizePhones(
+    (raw.identity as Partial<SiteIdentity> & { phone?: string } | undefined)?.phones,
+  );
+  const fallbackPhones =
+    rawPhones.length > 0 ? rawPhones : DEFAULT_IDENTITY.phones;
+  const identity: SiteIdentity = {
+    ...DEFAULT_IDENTITY,
+    ...raw.identity,
+    phones: fallbackPhones,
+  };
   const socials: SiteSocials = { ...DEFAULT_SOCIALS, ...raw.socials };
   return {
     identity,

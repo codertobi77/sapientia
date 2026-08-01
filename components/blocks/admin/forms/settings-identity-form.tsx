@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useRouter } from "next/navigation";
-import { Loader2, Save } from "lucide-react";
+import { Loader2, Save, Plus, Trash2 } from "lucide-react";
 import { Input, Label } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import type { SiteIdentity } from "@/lib/site-defaults";
@@ -22,14 +22,22 @@ export function SettingsIdentityForm({ initial }: { initial: SiteIdentity }) {
     setLoading(true);
     setError("");
     setOk("");
+    // Nettoie les lignes vides avant envoi (le validateur exige >= 1).
+    const payload: SiteIdentity = { ...form, phones: form.phones.map((p) => p.trim()).filter(Boolean) };
+    if (payload.phones.length === 0) {
+      setError("Au moins un numéro de téléphone est requis.");
+      setLoading(false);
+      return;
+    }
     try {
       const res = await fetch("/api/admin/settings", {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ section: "identity", value: form }),
+        body: JSON.stringify({ section: "identity", value: payload }),
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error ?? "Échec de l'enregistrement");
+      setForm(payload);
       setOk("Enregistré. Le site public est mis à jour.");
       router.refresh();
     } catch (err) {
@@ -70,9 +78,46 @@ export function SettingsIdentityForm({ initial }: { initial: SiteIdentity }) {
           <Label htmlFor="email">E-mail</Label>
           <Input id="email" type="email" value={form.email} onChange={(e) => set("email", e.target.value)} required />
         </div>
-        <div>
-          <Label htmlFor="phone">Téléphone</Label>
-          <Input id="phone" value={form.phone} onChange={(e) => set("phone", e.target.value)} required />
+        <div className="sm:col-span-1">
+          <Label htmlFor="phone-0">Téléphones</Label>
+          <div className="space-y-2">
+            {form.phones.map((p, i) => (
+              <div key={i} className="flex items-center gap-2">
+                <Input
+                  id={`phone-${i}`}
+                  value={p}
+                  onChange={(e) => {
+                    const next = form.phones.slice();
+                    next[i] = e.target.value;
+                    set("phones", next);
+                  }}
+                  placeholder="+229 ..."
+                  required={i === 0}
+                />
+                <Button
+                  type="button"
+                  variant="ghost"
+                  size="sm"
+                  aria-label="Supprimer ce numéro"
+                  disabled={form.phones.length <= 1}
+                  onClick={() => set("phones", form.phones.filter((_, j) => j !== i))}
+                  className="shrink-0"
+                >
+                  <Trash2 className="h-4 w-4" />
+                </Button>
+              </div>
+            ))}
+            <Button
+              type="button"
+              variant="outline"
+              size="sm"
+              onClick={() => set("phones", [...form.phones, ""])}
+              className="mt-1"
+            >
+              <Plus className="h-4 w-4" />
+              Ajouter un numéro
+            </Button>
+          </div>
         </div>
       </div>
 

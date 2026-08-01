@@ -11,6 +11,7 @@ import {
   getTemoignages,
   getPartenaires,
 } from "@/lib/data";
+import { getIdentity, getSocials } from "@/lib/settings";
 
 export const metadata: Metadata = {
   title: "EFES « SAPIENTIA » — Établissement privé de formation des enseignants",
@@ -21,35 +22,35 @@ export const metadata: Metadata = {
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://efes-sapientia.bj";
 
 export default async function HomePage() {
-  const [formations, actualites, temoignages, partenaires] = await Promise.all([
-    getFormations(),
-    getActualites(4),
-    getTemoignages(3),
-    getPartenaires(),
-  ]);
+  const [formations, actualites, temoignages, partenaires, identity, socials] =
+    await Promise.all([
+      getFormations(),
+      getActualites(4),
+      getTemoignages(3),
+      getPartenaires(),
+      getIdentity(),
+      getSocials(),
+    ]);
 
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "EducationalOrganization",
-    name: "EFES « SAPIENTIA »",
-    alternateName: "SAPIENTIA",
+    name: identity.name,
+    alternateName: identity.shortName,
     description:
       "Établissement privé de formation des enseignants au Bénin. Formations en présentiel et à distance : Porto-Novo, Parakou, Savè, Abomey-Calavi.",
     url: SITE_URL,
-    email: "contact@efes-sapientia.bj",
-    telephone: "+22900000000",
+    email: identity.email,
+    // schema.org `telephone` : une seule valeur préférée. On jointe les numéros
+    // par une virgule (format SEO accepté par Google).
+    telephone: identity.phones.join(", "),
     address: {
       "@type": "PostalAddress",
       streetAddress: "Quartier Ouando",
       addressLocality: "Porto-Novo",
       addressCountry: "BJ",
     },
-    sameAs: [
-      "https://facebook.com",
-      "https://instagram.com",
-      "https://linkedin.com",
-      "https://youtube.com",
-    ],
+    sameAs: socials.links.map((l) => l.href),
   };
 
   return (

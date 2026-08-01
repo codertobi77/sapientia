@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Mail, Phone, MapPin, Send } from "lucide-react";
 import { getSocials, getIdentity } from "@/lib/settings";
+import { telHref } from "@/lib/site-defaults";
 import { NewsletterForm } from "@/components/blocks/newsletter-form";
 import { SOCIAL_ICONS } from "@/components/blocks/social-icons";
 
@@ -62,11 +63,18 @@ export async function Footer() {
               <MapPin className="h-5 w-5 text-gold shrink-0 mt-0.5" />
               <span>{identity.address}</span>
             </li>
-            <li>
-              <a href={`tel:${identity.phone.replace(/\s/g, "")}`} className="flex items-start gap-3 hover:text-gold transition-colors">
-                <Phone className="h-5 w-5 text-gold shrink-0 mt-0.5" />
-                <span>{identity.phone}</span>
-              </a>
+            <li className="flex items-start gap-3">
+              <Phone className="h-5 w-5 text-gold shrink-0 mt-0.5" />
+              <span className="flex flex-wrap items-center gap-x-1 gap-y-1">
+                {identity.phones.map((p, i) => (
+                  <span key={p} className="inline-flex items-center gap-x-1">
+                    {i > 0 && <span aria-hidden className="text-white/40">·</span>}
+                    <a href={telHref(p)} className="hover:text-gold transition-colors">
+                      {p}
+                    </a>
+                  </span>
+                ))}
+              </span>
             </li>
             <li>
               <a href={`mailto:${identity.email}`} className="flex items-start gap-3 hover:text-gold transition-colors">
