@@ -7,7 +7,7 @@ import { SOCIAL_ICONS } from "@/components/blocks/social-icons";
 
 const liensRapides = [
   { label: "Accueil", href: "/" },
-  { label: "Qui sommes-nous", href: "/qui-sommes-nous" },
+  { label: "Qui sommes-nous ?", href: "/qui-sommes-nous" },
   { label: "Nos formations", href: "/formations" },
   { label: "E-learning", href: "/formation-distance" },
   { label: "Actualités", href: "/actualites" },
@@ -78,18 +78,21 @@ export async function Footer() {
                 <span>Parakou, Bénin</span>
               </a>
             </li>
-            <li className="flex items-start gap-3">
-              <Phone className="h-5 w-5 text-gold shrink-0 mt-0.5" />
-              <span className="flex flex-wrap items-center gap-x-1 gap-y-1">
-                {identity.phones.map((p, i) => (
-                  <span key={p} className="inline-flex items-center gap-x-1">
-                    {i > 0 && <span aria-hidden className="text-white/40">·</span>}
-                    <a href={telHref(p)} className="hover:text-gold transition-colors">
-                      {p}
-                    </a>
-                  </span>
-                ))}
-              </span>
+            <li className="space-y-2">
+              {identity.phones.length === 0 ? (
+                <span className="text-white/60">—</span>
+              ) : (
+                identity.phones.map((p) => (
+                  <a
+                    key={p}
+                    href={telHref(p)}
+                    className="flex items-start gap-3 hover:text-gold transition-colors text-white/80"
+                  >
+                    <Phone className="h-5 w-5 text-gold shrink-0 mt-0.5" />
+                    <span>{p}</span>
+                  </a>
+                ))
+              )}
             </li>
             <li>
               <a href={`mailto:${identity.email}`} className="flex items-start gap-3 hover:text-gold transition-colors">

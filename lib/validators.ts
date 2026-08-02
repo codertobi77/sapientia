@@ -26,6 +26,9 @@ export const devisSchema = z.object({
 
 export const inscriptionSchema = z.object({
   formation_id: z.string().uuid(),
+  type_formation: z.enum(["PRESENTIEL", "DISTANCE"], {
+    message: "Type de formation requis",
+  }),
   nom: z.string().min(2, "Nom requis").trim(),
   prenom: z.string().min(2, "Prénom requis").trim(),
   email: emailSchema,

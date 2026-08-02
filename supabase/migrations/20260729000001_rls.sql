@@ -1,5 +1,5 @@
 -- ============================================================
--- EFES « SAPIENTIA » — Row Level Security
+-- EFES-SAPIENTIA — Row Level Security
 -- ============================================================
 
 -- Active RLS sur toutes les tables publiques

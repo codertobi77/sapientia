@@ -117,16 +117,33 @@ export default async function FormationPresentielPage() {
               description={`Choisissez le campus le plus proche de chez vous : ${campus.map((c) => c.ville).join(", ")}.`}
             />
             <div className="mt-14 grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              {campus.map((c) => (
-                <Card key={c.id} className="p-7 flex flex-col">
-                  <span className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-navy-50 text-navy mb-4">
-                    <MapPin className="h-6 w-6" />
-                  </span>
-                  <h3 className="font-display text-lg font-bold text-navy">{c.ville}</h3>
-                  <p className="mt-2 text-sm text-slate">{c.adresse ?? "Bénin"}</p>
-                  {c.telephone && <p className="mt-1 text-sm text-slate">{c.telephone}</p>}
-                </Card>
-              ))}
+              {campus.map((c) => {
+                const query =
+                  c.latitude != null && c.longitude != null
+                    ? `${c.latitude},${c.longitude}`
+                    : encodeURIComponent(`${c.adresse ? c.adresse + ", " : ""}${c.ville}, Bénin`);
+                const mapSrc = `https://maps.google.com/maps?q=${query}&z=15&output=embed`;
+                return (
+                  <Card key={c.id} className="p-7 flex flex-col">
+                    <span className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-navy-50 text-navy mb-4">
+                      <MapPin className="h-6 w-6" />
+                    </span>
+                    <h3 className="font-display text-lg font-bold text-navy">{c.ville}</h3>
+                    <p className="mt-2 text-sm text-slate">{c.adresse ?? "Bénin"}</p>
+                    {c.telephone && <p className="mt-1 text-sm text-slate">{c.telephone}</p>}
+                    <div className="mt-4 -mx-2 overflow-hidden rounded-xl border border-border">
+                      <iframe
+                        title={`Localisation du campus de ${c.ville}`}
+                        src={mapSrc}
+                        className="w-full h-40"
+                        loading="lazy"
+                        referrerPolicy="no-referrer-when-downgrade"
+                        allowFullScreen
+                      />
+                    </div>
+                  </Card>
+                );
+              })}
             </div>
           </>
         ) : (

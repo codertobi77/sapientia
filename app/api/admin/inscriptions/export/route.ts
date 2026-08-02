@@ -22,6 +22,7 @@ export async function GET() {
     "prenom",
     "email",
     "telephone",
+    "type_formation",
     "formation",
     "statut",
     "note_admin",
@@ -33,6 +34,11 @@ export async function GET() {
     i.prenom,
     i.email,
     i.telephone ?? "",
+    i.type_formation === "PRESENTIEL"
+      ? "En présentiel"
+      : i.type_formation === "DISTANCE"
+        ? "À distance (e-learning)"
+        : (i.type_formation ?? ""),
     i.formation_titre ?? "",
     i.statut,
     i.note_admin ?? "",

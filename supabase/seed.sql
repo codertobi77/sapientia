@@ -1,5 +1,5 @@
 -- ============================================================
--- EFES « SAPIENTIA » — Données initiales (seed)
+-- EFES-SAPIENTIA — Données initiales (seed)
 -- ============================================================
 
 -- Formations (9 filières)
@@ -20,7 +20,7 @@ on conflict (slug) do nothing;
 -- Savè et Abomey-Calavi sont des sites non ouverts (actif = false) ; ils
 -- restent en base pour kunne être réactivés depuis /admin/campus.
 insert into public.campus (ville, adresse, telephone, email, latitude, longitude, description, ordre, actif) values
-  ('Porto-Novo', 'Quartier Ouando, Porto-Novo', '+229 00 00 00 01', 'portonovo@efes-sapientia.bj', 6.4969, 2.6289, 'Campus principal de l''EFES « SAPIENTIA » à Porto-Novo, capitale politique.', 1, true),
+  ('Porto-Novo', 'Quartier Ouando, Porto-Novo', '+229 00 00 00 01', 'portonovo@efes-sapientia.bj', 6.4969, 2.6289, 'Campus principal de l''EFES-SAPIENTIA à Porto-Novo, capitale politique.', 1, true),
   ('Parakou', 'Quartier Arafat, Parakou', '+229 00 00 00 02', 'parakou@efes-sapientia.bj', 9.3372, 2.6148, 'Campus de Parakou, au cœur du nord du Bénin.', 2, true),
   ('Savè', 'Route principale, Savè', '+229 00 00 00 03', 'save@efes-sapientia.bj', 8.3290, 2.4840, 'Nouveau site de Savè, en plein développement.', 3, false),
   ('Abomey-Calavi', 'Zone universitaire, Abomey-Calavi', '+229 00 00 00 04', 'calavi@efes-sapientia.bj', 6.4485, 2.3560, 'Nouveau site d''Abomey-Calavi, proche de Cotonou.', 4, false)
@@ -33,16 +33,16 @@ on conflict (id) do nothing;
 
 -- Témoignages
 insert into public.temoignages (auteur, role, contenu, ordre) values
-  ('Aïcha Dossou', 'Diplômée en Lettres Modernes', 'EFES « SAPIENTIA » m''a donné une formation rigoureuse et humaine. J''enseigne aujourd''hui avec confiance.', 1),
+  ('Aïcha Dossou', 'Diplômée en Lettres Modernes', 'EFES-SAPIENTIA m''a donné une formation rigoureuse et humaine. J''enseigne aujourd''hui avec confiance.', 1),
   ('Paulin Houngbo', 'Étudiant en Informatique', 'La plateforme e-learning est intuitive et les professeurs sont très disponibles. Une vraie réussite.', 2),
   ('Mariam Adam', 'Diplômée en SVT', 'Un accompagnement personnalisé et de vraies valeurs pédagogiques. Je recommande cette école.', 3)
 on conflict (id) do nothing;
 
 -- Actualités
 insert into public.actualites (slug, titre, extrait, contenu, date, type) values
-  ('rentree-academique-2026', 'Rentrée académique 2026', 'L''EFES « SAPIENTIA » annonce sa rentrée sur ses 4 campus. Inscriptions ouvertes.', 'La rentrée académique se tient à Porto-Novo, Parakou, Savè et Abomey-Calavi. Les inscriptions sont ouvertes en ligne.', current_date, 'EVENEMENT'),
+  ('rentree-academique-2026', 'Rentrée académique 2026', 'L''EFES-SAPIENTIA annonce sa rentrée sur ses 4 campus. Inscriptions ouvertes.', 'La rentrée académique se tient à Porto-Novo, Parakou, Savè et Abomey-Calavi. Les inscriptions sont ouvertes en ligne.', current_date, 'EVENEMENT'),
   ('seminaire-pedagogie-innovante', 'Séminaire : Pédagogie innovante', 'Un séminaire international sur l''innovation pédagogique se tiendra en mars.', 'En partenariat avec l''AUF, un séminaire réunira enseignants et chercheurs autour de l''innovation pédagogique.', current_date - 15, 'SEMINAIRE'),
-  ('partenariat-unesco', 'Partenariat avec l''UNESCO', 'L''EFES « SAPIENTIA » signe un partenariat stratégique avec l''UNESCO.', 'Ce partenariat vise à renforcer la formation des enseignants à l''échelle sous-régionale.', current_date - 30, 'PARTENARIAT'),
-  ('ouverture-site-save', 'Ouverture du site de Savè', 'Un nouveau campus ouvre à Savè pour la rentrée 2026.', 'L''EFES « SAPIENTIA » s''étend à Savè afin de rapprocher la formation des populations du centre du Bénin.', current_date - 7, 'NOUVELLE_FORMATION')
+  ('partenariat-unesco', 'Partenariat avec l''UNESCO', 'L''EFES-SAPIENTIA signe un partenariat stratégique avec l''UNESCO.', 'Ce partenariat vise à renforcer la formation des enseignants à l''échelle sous-régionale.', current_date - 30, 'PARTENARIAT'),
+  ('ouverture-site-save', 'Ouverture du site de Savè', 'Un nouveau campus ouvre à Savè pour la rentrée 2026.', 'L''EFES-SAPIENTIA s''étend à Savè afin de rapprocher la formation des populations du centre du Bénin.', current_date - 7, 'NOUVELLE_FORMATION')
 on conflict (slug) do nothing;
 

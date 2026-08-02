@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 import { actualiteTypeLabel, formatDate } from "@/lib/format";
 import { getActualite } from "@/lib/data";
+import { sanitizeArticleHtml } from "@/lib/sanitize-html";
 
 type Params = { slug: string };
 
@@ -62,11 +63,7 @@ export default async function ActualiteDetailPage({
             <p className="text-lg text-slate leading-relaxed mb-8">{actualite.extrait}</p>
           )}
 
-          <div className="prose prose-slate max-w-none">
-            <p className="text-slate leading-relaxed whitespace-pre-line">
-              {actualite.contenu ?? actualite.extrait ?? ""}
-            </p>
-          </div>
+          <ArticleContent html={actualite.contenu ?? actualite.extrait ?? ""} />
 
           {/* CTA */}
           <Card className="mt-12 p-8 bg-navy border-navy text-white text-center">
@@ -83,5 +80,31 @@ export default async function ActualiteDetailPage({
         </div>
       </Section>
     </>
+  );
+}
+
+/**
+ * Affiche le contenu richtext d'un article préalablement sanitisé
+ * (sanitizeArticleHtml retire script/on*, data-* et balises non listées).
+ * Le HTML étant produit uniquement par le back-office admin authentifié,
+ * le rendu via dangerouslySetInnerHTML est sûr après sanitisation.
+ */
+function ArticleContent({ html }: { html: string }) {
+  const clean = sanitizeArticleHtml(html);
+  return (
+    <div
+      className="prose prose-slate max-w-none
+        [&_h1]:text-2xl [&_h1]:font-bold [&_h1]:text-navy [&_h1]:mt-6 [&_h1]:mb-3
+        [&_h2]:text-xl [&_h2]:font-bold [&_h2]:text-navy [&_h2]:mt-5 [&_h2]:mb-2
+        [&_h3]:text-lg [&_h3]:font-semibold [&_h3]:text-navy [&_h3]:mt-4 [&_h3]:mb-2
+        [&_p]:text-slate [&_p]:leading-relaxed [&_p]:my-3
+        [&_ul]:list-disc [&_ul]:pl-6 [&_ul]:my-3 [&_ol]:list-decimal [&_ol]:pl-6 [&_ol]:my-3
+        [&_li]:text-slate [&_li]:my-1
+        [&_blockquote]:border-l-4 [&_blockquote]:border-gold [&_blockquote]:pl-4 [&_blockquote]:italic [&_blockquote]:text-slate [&_blockquote]:my-4
+        [&_a]:text-gold [&_a]:underline [&_a]:font-semibold
+        [&_img]:rounded-xl [&_img]:my-4 [&_img]:w-full [&_img]:h-auto
+        [&_code]:bg-cream [&_code]:px-1.5 [&_code]:py-0.5 [&_code]:rounded [&_code]:text-sm"
+      dangerouslySetInnerHTML={{ __html: clean }}
+    />
   );
 }

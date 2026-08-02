@@ -23,6 +23,7 @@ export async function POST(request: Request) {
   const supabase = await createClient();
   const { error } = await supabase.from("demandes_inscription").insert({
     formation_id: parsed.data.formation_id,
+    type_formation: parsed.data.type_formation,
     nom: parsed.data.nom,
     prenom: parsed.data.prenom,
     email: parsed.data.email,
@@ -42,6 +43,8 @@ export async function POST(request: Request) {
   const formationTitre = formation?.titre ?? "formation choisie";
 
   const fTitre = escapeHtml(formationTitre);
+  const typeLabel = parsed.data.type_formation === "PRESENTIEL" ? "En présentiel" : "À distance (e-learning)";
+  const typeHtml = escapeHtml(typeLabel);
 
   await Promise.all([
     sendMail({
@@ -50,7 +53,7 @@ export async function POST(request: Request) {
       html: confirmationEmail(
         `${parsed.data.prenom} ${parsed.data.nom}`,
         `<p>Nous confirmons la bonne réception de votre demande d'inscription pour la formation
-        <strong>${fTitre}</strong>.</p>
+        <strong>${fTitre}</strong> (${typeHtml}).</p>
         <p>Notre équipe administrative va examiner votre dossier et reviendra vers vous par e-mail
         dans les meilleurs délais.</p>
         <p style="color:#64748b">Merci de votre confiance.</p>`,
@@ -60,6 +63,7 @@ export async function POST(request: Request) {
       "Nouvelle demande d'inscription",
       `<p><strong>${escapeHtml(parsed.data.prenom)} ${escapeHtml(parsed.data.nom)}</strong> (${escapeHtml(parsed.data.email)} — ${escapeHtml(parsed.data.telephone ?? "—")})</p>
        <p><strong>Formation :</strong> ${fTitre}</p>
+       <p><strong>Type de formation :</strong> ${typeHtml}</p>
        <p><strong>Pièces :</strong> ${parsed.data.documents_paths.length} fichier(s) téléversé(s).</p>
        <p>Niveau : ${escapeHtml(parsed.data.niveau ?? "—")} · Date de naissance : ${escapeHtml(parsed.data.date_naissance ?? "—")}</p>`,
     ),

@@ -14,6 +14,7 @@ const ICON_OPTIONS = [
   { value: "book", label: "Livre" },
   { value: "map", label: "Carte" },
   { value: "pin", label: "Repère" },
+  { value: "hourglass", label: "Sablier" },
   { value: "users", label: "Groupe" },
   { value: "award", label: "Récompense" },
 ];

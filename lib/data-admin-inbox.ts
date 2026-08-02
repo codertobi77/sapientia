@@ -25,6 +25,7 @@ function adminOrThrow() {
 export type Inscription = {
   id: string;
   formation_id: string | null;
+  type_formation: string | null;
   nom: string;
   prenom: string;
   email: string;
@@ -103,7 +104,7 @@ export async function listInscriptions(
   let query = supabase
     .from("demandes_inscription")
     .select(
-      "id, formation_id, nom, prenom, email, telephone, date_naissance, adresse, niveau, documents_paths, statut, note_admin, created_at, updated_at, formations!left(titre, slug)",
+      "id, formation_id, type_formation, nom, prenom, email, telephone, date_naissance, adresse, niveau, documents_paths, statut, note_admin, created_at, updated_at, formations!left(titre, slug)",
     )
     .order("created_at", { ascending: false });
   if (statut) query = query.eq("statut", statut);
@@ -119,7 +120,7 @@ export async function getInscription(
   const { data, error } = await supabase
     .from("demandes_inscription")
     .select(
-      "id, formation_id, nom, prenom, email, telephone, date_naissance, adresse, niveau, documents_paths, statut, note_admin, created_at, updated_at, formations!left(titre, slug)",
+      "id, formation_id, type_formation, nom, prenom, email, telephone, date_naissance, adresse, niveau, documents_paths, statut, note_admin, created_at, updated_at, formations!left(titre, slug)",
     )
     .eq("id", id)
     .maybeSingle();
@@ -140,7 +141,7 @@ export async function updateInscription(
     .update(update)
     .eq("id", id)
     .select(
-      "id, formation_id, nom, prenom, email, telephone, date_naissance, adresse, niveau, documents_paths, statut, note_admin, created_at, updated_at",
+      "id, formation_id, type_formation, nom, prenom, email, telephone, date_naissance, adresse, niveau, documents_paths, statut, note_admin, created_at, updated_at",
     )
     .maybeSingle();
   if (error) throw error;
@@ -380,6 +381,7 @@ function normalizeInscription(row: RawInscription): InscriptionWithFormation {
   return {
     id: row.id,
     formation_id: row.formation_id,
+    type_formation: row.type_formation,
     nom: row.nom,
     prenom: row.prenom,
     email: row.email,

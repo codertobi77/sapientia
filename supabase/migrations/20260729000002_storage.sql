@@ -1,5 +1,5 @@
 -- ============================================================
--- EFES « SAPIENTIA » — Stockage des pièces d'inscription
+-- EFES-SAPIENTIA — Stockage des pièces d'inscription
 -- ============================================================
 -- Bucket public pour les documents téléversés par les candidats
 -- lors de l'inscription en ligne (pièces justificatives).

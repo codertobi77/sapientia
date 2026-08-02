@@ -1,5 +1,5 @@
 -- ============================================================
--- EFES « SAPIENTIA » — Schéma initial (migration Supabase)
+-- EFES-SAPIENTIA — Schéma initial (migration Supabase)
 -- ============================================================
 
 -- Activer les extensions nécessaires

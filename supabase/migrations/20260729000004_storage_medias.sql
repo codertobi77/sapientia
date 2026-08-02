@@ -1,5 +1,5 @@
 -- ============================================================
--- EFES « SAPIENTIA » — Bucket Storage « medias » (back-office)
+-- EFES-SAPIENTIA — Bucket Storage « medias » (back-office)
 -- ============================================================
 -- Bucket public SÉPARÉ de « documents » pour les images du back-office
 -- (actualités, logos partenaires, photos témoignages, campus).

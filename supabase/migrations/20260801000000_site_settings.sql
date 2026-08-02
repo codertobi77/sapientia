@@ -1,5 +1,5 @@
 -- ============================================================
--- EFES « SAPIENTIA » — Paramètres du site éditables depuis l'admin
+-- EFES-SAPIENTIA — Paramètres du site éditables depuis l'admin
 -- Migration : 20260801000000_site_settings.sql
 -- ============================================================
 --
@@ -43,7 +43,7 @@ create policy "admin site settings" on public.site_settings
 -- ============================================================
 
 insert into public.site_settings (key, value) values
-  ('identity', '{"name":"EFES SAPIENTIA","shortName":"SAPIENTIA","subtitle":"L''excellence dans la formation des enseignants","email":"efesapientia@yahoo.fr","phones":["+229 0160600376","+229 06060385","+229 95428013","+229 06060372"],"addresses":["Porto-Novo, Bénin"],"whatsapp":"229016000376"}'::jsonb)
+  ('identity', '{"name":"EFES-SAPIENTIA","shortName":"SAPIENTIA","subtitle":"L''excellence dans la formation des enseignants","email":"efesapientia@yahoo.fr","phones":["+229 0160600376","+229 06060385","+229 95428013","+229 06060372"],"addresses":["Porto-Novo, Bénin"],"whatsapp":"229016000376"}'::jsonb)
 on conflict (key) do nothing;
 
 insert into public.site_settings (key, value) values
@@ -51,15 +51,15 @@ insert into public.site_settings (key, value) values
 on conflict (key) do nothing;
 
 insert into public.site_settings (key, value) values
-  ('stats', '[{"value":"+500","label":"Étudiants formés","icon":"student"},{"value":"+100","label":"Formateurs qualifiés","icon":"graduation"},{"value":"20+","label":"Programmes de formation","icon":"book"},{"value":"2","label":"Sites actuels","sublabel":"(Porto-Novo, Parakou)","icon":"map"},{"value":"2","label":"Nouveaux sites en cours","sublabel":"(Savè, Calavi)","icon":"pin"}]'::jsonb)
+  ('stats', '[{"value":"+500","label":"Étudiants formés","icon":"student"},{"value":"+100","label":"Formateurs qualifiés","icon":"graduation"},{"value":"2","label":"Sites actuels","sublabel":"(Porto-Novo, Parakou)","icon":"map"},{"value":"2","label":"Nouveaux sites en cours","sublabel":"(Savè, Calavi)","icon":"hourglass"}]'::jsonb)
 on conflict (key) do nothing;
 
 insert into public.site_settings (key, value) values
-  ('nav', '[{"label":"Accueil","href":"/"},{"label":"Qui sommes-nous","href":"/qui-sommes-nous"},{"label":"Nos formations","href":"/formations"},{"label":"Formation à distance","href":"/formation-distance"},{"label":"Formation en présentiel","href":"/formation-presentiel"},{"label":"Actualités","href":"/actualites"},{"label":"Contact","href":"/contact"}]'::jsonb)
+  ('nav', '[{"label":"Accueil","href":"/"},{"label":"Qui sommes-nous ?","href":"/qui-sommes-nous"},{"label":"Nos formations","href":"/formations"},{"label":"Formation à distance","href":"/formation-distance"},{"label":"Formation en présentiel","href":"/formation-presentiel"},{"label":"Actualités","href":"/actualites"},{"label":"Contact","href":"/contact"}]'::jsonb)
 on conflict (key) do nothing;
 
 insert into public.site_settings (key, value) values
-  ('logo', '{"imageUrl":"/logo.jpeg","alt":"EFES SAPIENTIA","text":"EFES SAPIENTIA","subtitle":"Établissement privé de formation des enseignants"}'::jsonb)
+  ('logo', '{"imageUrl":"/logo.jpeg","alt":"EFES-SAPIENTIA","text":"EFES-SAPIENTIA","subtitle":"Établissement privé de formation des enseignants"}'::jsonb)
 on conflict (key) do nothing;
 
 -- 'Exécutez dans le SQL Editor Supabase. Les valeurs par défaut sont déjà en place.';

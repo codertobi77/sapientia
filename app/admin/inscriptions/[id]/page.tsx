@@ -50,6 +50,15 @@ export default async function InscriptionDetailPage({
         {inscription.formation_titre && (
           <Badge variant="goldLight">{inscription.formation_titre}</Badge>
         )}
+        {inscription.type_formation && (
+          <Badge variant="navyLight">
+            {inscription.type_formation === "PRESENTIEL"
+              ? "En présentiel"
+              : inscription.type_formation === "DISTANCE"
+                ? "À distance (e-learning)"
+                : inscription.type_formation}
+          </Badge>
+        )}
         {inscription.formation_slug && (
           <Link
             href={`/formations/${inscription.formation_slug}`}
@@ -78,6 +87,13 @@ export default async function InscriptionDetailPage({
                 {inscription.date_naissance ? formatDate(inscription.date_naissance) : "—"}
               </Field>
               <Field label="Adresse">{inscription.adresse ?? "—"}</Field>
+              <Field label="Type de formation">
+                {inscription.type_formation === "PRESENTIEL"
+                  ? "En présentiel"
+                  : inscription.type_formation === "DISTANCE"
+                    ? "À distance (e-learning)"
+                    : (inscription.type_formation ?? "—")}
+              </Field>
               <Field label="Niveau">{inscription.niveau ?? "—"}</Field>
               <Field label="Reçue le">{formatDate(inscription.created_at)}</Field>
             </dl>

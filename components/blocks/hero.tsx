@@ -9,7 +9,7 @@ export function Hero() {
       <div className="absolute inset-0 lg:left-[35%]">
         <Image
           src="/students-campus.png"
-          alt="Campus EFES SAPIENTIA"
+          alt="Campus EFES-SAPIENTIA"
           fill
           className="object-cover object-[75%_center] lg:object-right"
           priority
@@ -32,7 +32,7 @@ export function Hero() {
           </h1>
 
           <p className="mt-5 text-base sm:text-lg text-white/80 leading-relaxed max-w-xl">
-            EFES SAPIENTIA est un établissement privé spécialisé dans la
+            EFES-SAPIENTIA est un établissement privé spécialisé dans la
             formation des enseignants compétents, éthiques et innovants.
           </p>
 

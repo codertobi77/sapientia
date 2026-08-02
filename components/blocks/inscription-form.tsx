@@ -30,14 +30,16 @@ const STEPS = [
 export function InscriptionForm({
   formations,
   preselectedFormation,
+  preselectedType,
 }: {
   formations: Formation[];
   preselectedFormation?: string;
+  preselectedType?: "PRESENTIEL" | "DISTANCE";
 }) {
   const [step, setStep] = useState(1);
   const [form, setForm] = useState({
     formation_id: preselectedFormation ?? "",
-    type_formation: "",
+    type_formation: preselectedType ?? "",
     nom: "",
     prenom: "",
     email: "",

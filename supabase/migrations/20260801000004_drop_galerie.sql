@@ -1,5 +1,5 @@
 -- ============================================================
--- EFES « SAPIENTIA » — Suppression de la galerie
+-- EFES-SAPIENTIA — Suppression de la galerie
 -- Migration : 20260801000004_drop_galerie.sql
 -- ============================================================
 --

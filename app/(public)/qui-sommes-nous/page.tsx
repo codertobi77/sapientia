@@ -1,23 +1,31 @@
 import type { Metadata } from "next";
-import { Users, Target, Compass, Eye, Sparkles, GraduationCap, Landmark, Globe, Award, BookOpen } from "lucide-react";
+import { Users, Target, Compass, Eye, Sparkles, GraduationCap, Landmark, Globe, Award, BookOpen, MapPin, School, Pin, Hourglass, type LucideIcon } from "lucide-react";
 import { PageHero } from "@/components/blocks/page-hero";
 import { Section, SectionHeading } from "@/components/blocks/section";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { getStats } from "@/lib/settings";
+import type { Stat } from "@/lib/site-defaults";
+
+// Même mapping d'icônes que StatsBand (les stats sont éditables depuis l'admin).
+const STATS_ICONS: Record<string, LucideIcon> = {
+  users: Users,
+  graduation: GraduationCap,
+  map: MapPin,
+  student: School,
+  award: Award,
+  book: BookOpen,
+  pin: Pin,
+  hourglass: Hourglass,
+  landmark: Landmark,
+  globe: Globe,
+};
 
 export const metadata: Metadata = {
-  title: "Qui sommes-nous — EFES-SAPIENTIA",
+  title: "Qui sommes-nous ? — EFES-SAPIENTIA",
   description:
     "EFES-SAPIENTIA, établissement privé de formation des enseignants au Bénin. 17 membres fondateurs, 10 filières, 2 campus, une pédagogie innovante et accessible.",
 };
-
-const stats = [
-  { value: "17+", label: "Membres fondateurs", icon: Users },
-  { value: "10", label: "Filières enseignées", icon: GraduationCap },
-  { value: "2", label: "Campus au Bénin", icon: Landmark },
-  { value: "1500+", label: "Étudiants formés", icon: BookOpen },
-  { value: "98%", label: "Taux de réussite", icon: Award },
-];
 
 const piliers = [
   { titre: "Excellence", description: "Des enseignants qualifiés et des contenus rigoureux.", icon: Award },
@@ -27,7 +35,8 @@ const piliers = [
   { titre: "Intégrité", description: "Une gouvernance transparente et des valeurs fortes.", icon: Compass },
 ];
 
-export default function QuiSommesNousPage() {
+export default async function QuiSommesNousPage() {
+  const stats = await getStats();
   return (
     <>
       <PageHero
@@ -132,18 +141,24 @@ export default function QuiSommesNousPage() {
         </div>
       </Section>
 
-      {/* 5 stats */}
+      {/* Stats dynamiques (éditables depuis /admin/parametres) */}
       <Section className="py-10 lg:py-12">
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
-          {stats.map(({ value, label, icon: Icon }) => (
-            <Card key={label} className="p-6 text-center">
-              <span className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-navy-50 text-navy mb-4 mx-auto">
-                <Icon className="h-6 w-6" />
-              </span>
-              <p className="font-display text-3xl font-bold text-navy">{value}</p>
-              <p className="mt-1 text-sm text-slate">{label}</p>
-            </Card>
-          ))}
+          {stats.map((s: Stat, i: number) => {
+            const Icon = STATS_ICONS[s.icon] ?? Award;
+            return (
+              <Card key={`${s.label}-${i}`} className="p-6 text-center">
+                <span className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-navy-50 text-navy mb-4 mx-auto">
+                  <Icon className="h-6 w-6" />
+                </span>
+                <p className="font-display text-3xl font-bold text-navy">{s.value}</p>
+                <p className="mt-1 text-sm text-slate">{s.label}</p>
+                {s.sublabel && (
+                  <p className="text-xs text-muted mt-0.5">{s.sublabel}</p>
+                )}
+              </Card>
+            );
+          })}
         </div>
       </Section>
 

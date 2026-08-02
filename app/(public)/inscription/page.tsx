@@ -15,9 +15,11 @@ export const metadata: Metadata = {
 export default async function InscriptionPage({
   searchParams,
 }: {
-  searchParams: Promise<{ formation?: string }>;
+  searchParams: Promise<{ formation?: string; type?: string }>;
 }) {
-  const { formation } = await searchParams;
+  const { formation, type } = await searchParams;
+  const preselectedType =
+    type === "PRESENTIEL" || type === "DISTANCE" ? type : undefined;
   const formations = await getFormations();
 
   return (
@@ -41,7 +43,11 @@ export default async function InscriptionPage({
                 Suivez les 4 étapes. Vos informations sont enregistrées en toute confidentialité.
               </p>
               <div className="mt-8">
-                <InscriptionForm formations={formations} preselectedFormation={formation} />
+                <InscriptionForm
+                  formations={formations}
+                  preselectedFormation={formation}
+                  preselectedType={preselectedType}
+                />
               </div>
             </Card>
           </div>

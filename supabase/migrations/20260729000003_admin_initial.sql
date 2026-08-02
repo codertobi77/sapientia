@@ -1,5 +1,5 @@
 -- ============================================================
--- EFES « SAPIENTIA » — Initialisation du premier compte ADMIN
+-- EFES-SAPIENTIA — Initialisation du premier compte ADMIN
 -- Migration : 20260729000003_admin_initial.sql
 -- ============================================================
 --

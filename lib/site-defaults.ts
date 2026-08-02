@@ -78,7 +78,7 @@ export type LogoConfig = {
 // ----------------------------------------------------------------------------
 
 export const DEFAULT_IDENTITY: SiteIdentity = {
-  name: "EFES SAPIENTIA",
+  name: "EFES-SAPIENTIA",
   shortName: "SAPIENTIA",
   subtitle: "L'excellence dans la formation des enseignants",
   email: "efesapientia@yahoo.fr",
@@ -125,8 +125,8 @@ export const DEFAULT_NAV: NavItem[] = [
 
 export const DEFAULT_LOGO: LogoConfig = {
   imageUrl: "/logo.jpeg",
-  alt: "EFES SAPIENTIA",
-  text: "EFES SAPIENTIA",
+  alt: "EFES-SAPIENTIA",
+  text: "EFES-SAPIENTIA",
   subtitle: "Établissement privé de formation des enseignants",
 };
 
