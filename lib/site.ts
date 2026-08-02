@@ -22,6 +22,7 @@ import {
   Landmark,
   Globe,
   Leaf,
+  Dumbbell,
   type LucideIcon,
 } from "lucide-react";
 
@@ -35,6 +36,7 @@ export const FORMATION_ICONS: Record<string, LucideIcon> = {
   landmark: Landmark,
   globe: Globe,
   leaf: Leaf,
+  dumbbell: Dumbbell,
 };
 
 // Ré-export des types pour la compatibilité descendante d'import.

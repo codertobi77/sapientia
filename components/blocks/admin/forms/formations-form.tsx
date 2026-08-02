@@ -151,12 +151,23 @@ export function FormationsForm({ initial }: { initial?: AdminFormation }) {
         </div>
       </div>
 
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-3 pt-2">
         <Switch checked={form.published as boolean} onCheckedChange={(v) => set("published", v)} id="published" />
         <Label htmlFor="published" className="mb-0">Publié</Label>
       </div>
 
       {error && <p className="text-sm text-red-600 bg-red-50 rounded-xl px-4 py-3">{error}</p>}
+
+      {/* Bouton de soumission en bas */}
+      <div className="flex items-center gap-3 pt-2 border-t border-border">
+        <Button type="button" variant="ghost" size="sm" onClick={() => router.back()}>
+          <ArrowLeft className="h-4 w-4" /> Retour
+        </Button>
+        <Button type="submit" size="sm" disabled={loading}>
+          {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Save className="h-4 w-4" />}
+          {initial ? "Enregistrer" : "Créer"}
+        </Button>
+      </div>
     </form>
   );
 }
