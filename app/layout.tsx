@@ -32,6 +32,14 @@ export async function generateMetadata(): Promise<Metadata> {
       title: titleDefault,
       description: identity.subtitle,
     },
+    // Le favicon moderne pointe vers /icon, route dynamique qui sert le logo
+    // configuré du site (site_settings → logo.imageUrl, défaut /logo.jpeg).
+    // Le vieux app/favicon.ico reste servi en repli via le « shortcut ».
+    icons: {
+      icon: [{ url: "/icon", sizes: "any" }],
+      shortcut: ["/favicon.ico"],
+      apple: [{ url: "/icon", sizes: "any" }],
+    },
   };
 }
 

@@ -94,25 +94,32 @@ export function ClientHeader({
           scrolled ? "h-0 opacity-0" : "h-9 opacity-100"
         )}
       >
-        <div className="container-site flex h-9 items-center justify-between gap-4">
-          <p className="hidden sm:block truncate">
+        <div className="container-site flex h-9 items-center justify-between gap-3">
+          {/* Sur petits/moyens écrans on priorise les contacts téléphoniques
+              sur une seule ligne (tronqués si nécessaire). L'identité et
+              l'email restent réservés aux écrans larges (lg+). */}
+          <p className="hidden lg:block truncate shrink min-w-0">
             {identity.name} — {identity.subtitle}
           </p>
-          <div className="flex items-center gap-5 ml-auto">
+          <div className="flex items-center gap-4 ml-auto min-w-0">
             <a
               href={`mailto:${identity.email}`}
-              className="hidden md:inline-flex items-center gap-1.5 hover:text-gold transition-colors"
+              className="hidden lg:inline-flex items-center gap-1.5 hover:text-gold transition-colors shrink-0"
             >
               <Mail className="h-3.5 w-3.5" />
-              {identity.email}
+              <span className="truncate">{identity.email}</span>
             </a>
-            <span className="hidden md:inline-flex items-center gap-1.5">
-              <Phone className="h-3.5 w-3.5 shrink-0" />
-              <span className="flex flex-wrap items-center gap-x-1">
+            <span className="inline-flex items-center gap-1.5 min-w-0 shrink">
+              <Phone className="h-3.5 w-3.5 shrink-0" aria-hidden />
+              {/* Une seule ligne : on n'enroule pas, on tronque avec ellipsis. */}
+              <span className="inline-flex items-center gap-x-1 whitespace-nowrap overflow-hidden min-w-0">
                 {identity.phones.map((p, i) => (
-                  <span key={p} className="inline-flex items-center gap-x-0.5">
+                  <span key={p} className="inline-flex items-center gap-x-1 min-w-0">
                     {i > 0 && <span aria-hidden className="text-white/40">·</span>}
-                    <a href={telHref(p)} className="hover:text-gold transition-colors">
+                    <a
+                      href={telHref(p)}
+                      className="hover:text-gold transition-colors truncate"
+                    >
                       {p}
                     </a>
                   </span>

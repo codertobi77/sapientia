@@ -22,6 +22,9 @@ export async function generateMetadata({
   return {
     title: `${a.titre} — EFES-SAPIENTIA`,
     description: a.extrait ?? a.titre,
+    openGraph: a.image_url
+      ? { images: [{ url: a.image_url }] }
+      : undefined,
   };
 }
 
@@ -36,9 +39,21 @@ export default async function ActualiteDetailPage({
 
   return (
     <>
-      {/* En-tête */}
-      <section className="bg-navy text-white">
-        <div className="container-site py-12 lg:py-16">
+      {/* En-tête — l'image de l'actualité en arrière-plan (si présente). */}
+      <section className="bg-navy text-white relative overflow-hidden">
+        {actualite.image_url && (
+          <div className="absolute inset-0">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={actualite.image_url}
+              alt=""
+              aria-hidden
+              className="h-full w-full object-cover opacity-50"
+            />
+            <div className="absolute inset-0 bg-gradient-to-r from-navy via-navy/80 to-navy/40" />
+          </div>
+        )}
+        <div className="container-site relative py-12 lg:py-16 z-10">
           <Badge variant="gold" className="mb-4">
             {actualiteTypeLabel(actualite.type)}
           </Badge>
