@@ -4,7 +4,7 @@ import { AdminShell } from "@/components/blocks/admin/admin-shell";
 import { ToastProvider } from "@/components/ui/toast";
 
 export const metadata: Metadata = {
-  title: "Administration · EFES « SAPIENTIA »",
+  title: "Administration · EFES-SAPIENTIA",
   description: "Back-office de gestion du contenu et des demandes.",
   robots: { index: false, follow: false },
 };

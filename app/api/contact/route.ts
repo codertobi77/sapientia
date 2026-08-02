@@ -43,7 +43,7 @@ export async function POST(request: Request) {
     ),
     sendMail({
       to: parsed.data.email,
-      subject: "Nous avons bien reçu votre message — EFES « SAPIENTIA »",
+      subject: "Nous avons bien reçu votre message — EFES-SAPIENTIA",
       html: confirmationEmail(
         parsed.data.nom,
         `<p>Nous avons bien reçu votre message et reviendrons vers vous très rapidement.</p>

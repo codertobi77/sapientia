@@ -9,7 +9,7 @@ import { FORMATION_ICONS } from "@/lib/site";
 import { getFormations, type Formation } from "@/lib/data";
 
 export const metadata: Metadata = {
-  title: "Formations — EFES « SAPIENTIA »",
+  title: "Formations — EFES-SAPIENTIA",
   description:
     "Neuf filières d'excellence : Lettres Modernes, Mathématiques, Informatique, Physique, Chimie, Technologie, Histoire, Géographie et SVT.",
 };

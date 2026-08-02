@@ -109,14 +109,13 @@ export const SOCIAL_LABELS: Record<SocialKey, string> = {
 export const DEFAULT_STATS: Stat[] = [
   { value: "+500", label: "Étudiants formés", icon: "student" },
   { value: "+100", label: "Formateurs qualifiés", icon: "graduation" },
-  { value: "20+", label: "Programmes de formation", icon: "book" },
   { value: "2", label: "Sites actuels", sublabel: "(Porto-Novo, Parakou)", icon: "map" },
-  { value: "2", label: "Nouveaux sites en cours", sublabel: "(Savè, Calavi)", icon: "pin" },
+  { value: "2", label: "Nouveaux sites en cours", sublabel: "(Savè, Calavi)", icon: "hourglass" },
 ];
 
 export const DEFAULT_NAV: NavItem[] = [
   { label: "Accueil", href: "/" },
-  { label: "Qui sommes-nous", href: "/qui-sommes-nous" },
+  { label: "Qui sommes-nous ?", href: "/qui-sommes-nous" },
   { label: "Nos formations", href: "/formations" },
   { label: "Formation à distance", href: "/formation-distance" },
   { label: "Formation en présentiel", href: "/formation-presentiel" },

@@ -7,7 +7,7 @@ export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: "Connexion — Espace étudiant",
-  description: "Connectez-vous à votre espace étudiant EFES « SAPIENTIA ».",
+  description: "Connectez-vous à votre espace étudiant EFES-SAPIENTIA.",
 };
 
 export default function ConnexionPage() {

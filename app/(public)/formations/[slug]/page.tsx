@@ -24,9 +24,9 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params;
   const formation = await getFormation(slug);
-  if (!formation) return { title: "Formation introuvable — EFES « SAPIENTIA »" };
+  if (!formation) return { title: "Formation introuvable — EFES-SAPIENTIA" };
   return {
-    title: `${formation.titre} — EFES « SAPIENTIA »`,
+    title: `${formation.titre} — EFES-SAPIENTIA`,
     description: formation.description ?? formation.titre,
   };
 }

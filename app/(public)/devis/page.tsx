@@ -7,9 +7,9 @@ import { DevisForm } from "@/components/blocks/devis-form";
 import { getFormations } from "@/lib/data";
 
 export const metadata: Metadata = {
-  title: "Demande de devis — EFES « SAPIENTIA »",
+  title: "Demande de devis — EFES-SAPIENTIA",
   description:
-    "Demandez un devis personnalisé pour une formation en présentiel ou à distance à l'EFES « SAPIENTIA ».",
+    "Demandez un devis personnalisé pour une formation en présentiel ou à distance à l'EFES-SAPIENTIA.",
 };
 
 export default async function DevisPage({

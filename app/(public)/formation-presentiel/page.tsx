@@ -15,7 +15,7 @@ export async function generateMetadata(): Promise<Metadata> {
       ? `Un encadrement de proximité, des salles modernes et un emploi du temps structuré sur nos ${campus.length} campus au Bénin : ${villes}.`
       : "Un encadrement de proximité, des salles modernes et un emploi du temps structuré sur nos campus au Bénin.";
   return {
-    title: "Formation en présentiel — EFES « SAPIENTIA »",
+    title: "Formation en présentiel — EFES-SAPIENTIA",
     description,
   };
 }

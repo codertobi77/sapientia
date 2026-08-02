@@ -22,14 +22,8 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function ContactPage() {
   const identity = await getIdentity();
   const { links: socialLinks } = await getSocials();
-  const mapsApiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY ?? "";
-  const query = encodeURIComponent("Ouando, Porto-Novo, Bénin");
-  const mapSrc = mapsApiKey
-    ? `https://www.google.com/maps/embed/v1/place?key=${mapsApiKey}&q=${query}`
-    : `https://maps.google.com/maps?q=${query}&output=embed`;
-
   const whatsappHref = `https://wa.me/${identity.whatsapp}?text=${encodeURIComponent(
-    "Bonjour, je souhaite des informations sur EFES « SAPIENTIA ».",
+    "Bonjour, je souhaite des informations sur EFES-SAPIENTIA.",
   )}`;
 
   return (
@@ -141,16 +135,34 @@ export default async function ContactPage() {
               </div>
             </Card>
 
-            {/* Carte */}
-            <div className="rounded-3xl overflow-hidden border border-border shadow-premium">
-              <iframe
-                title="Localisation EFES « SAPIENTIA »"
-                src={mapSrc}
-                className="w-full h-72"
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                allowFullScreen
-              />
+            {/* Cartes */}
+            <div className="space-y-4">
+              <div className="rounded-3xl overflow-hidden border border-border shadow-premium">
+                <p className="text-xs font-semibold text-navy/60 uppercase tracking-widest px-4 pt-3 pb-1">
+                  📍 Porto-Novo
+                </p>
+                <iframe
+                  title="Campus EFES-SAPIENTIA Porto-Novo"
+                  src="https://maps.google.com/maps?q=6.496873,2.6288543&z=17&output=embed"
+                  className="w-full h-56"
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  allowFullScreen
+                />
+              </div>
+              <div className="rounded-3xl overflow-hidden border border-border shadow-premium">
+                <p className="text-xs font-semibold text-navy/60 uppercase tracking-widest px-4 pt-3 pb-1">
+                  📍 Parakou
+                </p>
+                <iframe
+                  title="Campus EFES-SAPIENTIA Parakou"
+                  src="https://maps.google.com/maps?q=9.3433049,2.6101414&z=17&output=embed"
+                  className="w-full h-56"
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  allowFullScreen
+                />
+              </div>
             </div>
           </aside>
         </div>

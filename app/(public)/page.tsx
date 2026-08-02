@@ -14,7 +14,7 @@ import {
 import { getIdentity, getSocials } from "@/lib/settings";
 
 export const metadata: Metadata = {
-  title: "EFES « SAPIENTIA » — Établissement privé de formation des enseignants",
+  title: "EFES-SAPIENTIA — Établissement privé de formation des enseignants",
   description:
     "Formations en présentiel et à distance au Bénin. Plus de 17 membres fondateurs, 9 filières, 4 campus : Porto-Novo, Parakou, Savè et Abomey-Calavi.",
 };

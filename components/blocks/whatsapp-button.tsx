@@ -3,7 +3,7 @@ import { getIdentity } from "@/lib/settings";
 export async function WhatsAppButton() {
   const identity = await getIdentity();
   const href = `https://wa.me/${identity.whatsapp}?text=${encodeURIComponent(
-    "Bonjour, je souhaite des informations sur EFES « SAPIENTIA ».",
+    "Bonjour, je souhaite des informations sur EFES-SAPIENTIA.",
   )}`;
   return (
     <a

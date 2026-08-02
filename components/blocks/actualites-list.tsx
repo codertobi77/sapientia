@@ -50,7 +50,7 @@ export function ActualitesList({
                   // eslint-disable-next-line @next/next/no-img-element
                   <img src={a.image_url} alt={a.titre} className="h-full w-full object-cover" />
                 ) : (
-                  <span className="text-white/40 text-sm">EFES « SAPIENTIA »</span>
+                  <span className="text-white/40 text-sm">EFES-SAPIENTIA</span>
                 )}
                 <Badge variant="gold" className="absolute top-4 left-4">
                   {actualiteTypeLabel(a.type)}

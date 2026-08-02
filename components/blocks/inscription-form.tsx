@@ -37,6 +37,7 @@ export function InscriptionForm({
   const [step, setStep] = useState(1);
   const [form, setForm] = useState({
     formation_id: preselectedFormation ?? "",
+    type_formation: "",
     nom: "",
     prenom: "",
     email: "",
@@ -63,7 +64,7 @@ export function InscriptionForm({
   }
 
   const canNext = () => {
-    if (step === 1) return !!form.formation_id;
+    if (step === 1) return !!form.formation_id && !!form.type_formation;
     if (step === 2) return form.nom && form.prenom && form.email.length > 3;
     return true;
   };
@@ -185,6 +186,18 @@ export function InscriptionForm({
               ))}
             </Select>
           </div>
+          <div>
+            <Label htmlFor="type_formation">Type de formation</Label>
+            <Select
+              id="type_formation"
+              value={form.type_formation}
+              onChange={(e) => set("type_formation", e.target.value)}
+            >
+              <option value="">— Sélectionnez un type —</option>
+              <option value="PRESENTIEL">En présentiel</option>
+              <option value="DISTANCE">À distance (e-learning)</option>
+            </Select>
+          </div>
         </div>
       )}
 
@@ -284,6 +297,9 @@ export function InscriptionForm({
           <dl className="divide-y divide-border rounded-2xl border border-border overflow-hidden">
             <Row label="Formation">
               {formations.find((f) => f.id === form.formation_id)?.titre ?? "—"}
+            </Row>
+            <Row label="Type de formation">
+              {form.type_formation === "PRESENTIEL" ? "En présentiel" : form.type_formation === "DISTANCE" ? "À distance" : "—"}
             </Row>
             <Row label="Nom">{form.nom}</Row>
             <Row label="Prénom">{form.prenom}</Row>

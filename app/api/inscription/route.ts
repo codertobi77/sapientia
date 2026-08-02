@@ -46,7 +46,7 @@ export async function POST(request: Request) {
   await Promise.all([
     sendMail({
       to: parsed.data.email,
-      subject: "Confirmation de votre demande d'inscription — EFES « SAPIENTIA »",
+      subject: "Confirmation de votre demande d'inscription — EFES-SAPIENTIA",
       html: confirmationEmail(
         `${parsed.data.prenom} ${parsed.data.nom}`,
         `<p>Nous confirmons la bonne réception de votre demande d'inscription pour la formation

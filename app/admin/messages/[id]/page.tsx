@@ -72,7 +72,7 @@ export default async function MessageDetailPage({
             <EmailForm
               id={msg.id}
               kind="messages"
-              defaultObjet={msg.sujet ? `Re: ${msg.sujet}` : "Votre message à EFES « SAPIENTIA »"}
+              defaultObjet={msg.sujet ? `Re: ${msg.sujet}` : "Votre message à EFES-SAPIENTIA"}
             />
           </CardBody>
         </Card>

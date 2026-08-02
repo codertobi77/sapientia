@@ -7,9 +7,9 @@ import { InscriptionForm } from "@/components/blocks/inscription-form";
 import { getFormations } from "@/lib/data";
 
 export const metadata: Metadata = {
-  title: "Inscription en ligne — EFES « SAPIENTIA »",
+  title: "Inscription en ligne — EFES-SAPIENTIA",
   description:
-    "Inscrivez-vous en ligne à l'EFES « SAPIENTIA » : choisissez votre formation, remplissez vos informations et téléversez vos pièces justificatives.",
+    "Inscrivez-vous en ligne à l'EFES-SAPIENTIA : choisissez votre formation, remplissez vos informations et téléversez vos pièces justificatives.",
 };
 
 export default async function InscriptionPage({

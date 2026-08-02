@@ -18,7 +18,7 @@ export function TemoignagesSection({ temoignages }: { temoignages: Temoignage[] 
         light
         eyebrow="Témoignages"
         title="Ils nous font confiance"
-        description="Étudiants, diplômés et partenaires partagent leur expérience à l'EFES « SAPIENTIA »."
+        description="Étudiants, diplômés et partenaires partagent leur expérience à l'EFES-SAPIENTIA."
       />
       <div className="mt-14 grid md:grid-cols-3 gap-6">
         {temoignages.map((t, i) => (

@@ -4,7 +4,7 @@ import { SignupForm } from "@/components/blocks/auth/signup-form";
 
 export const metadata: Metadata = {
   title: "Créer un compte — Espace étudiant",
-  description: "Créez votre compte étudiant EFES « SAPIENTIA ».",
+  description: "Créez votre compte étudiant EFES-SAPIENTIA.",
 };
 
 export default function CreerComptePage() {
@@ -12,7 +12,7 @@ export default function CreerComptePage() {
     <AuthCard
       eyebrow="Espace étudiant"
       title="Créer un compte"
-      subtitle="Rejoignez la plateforme EFES « SAPIENTIA »."
+      subtitle="Rejoignez la plateforme EFES-SAPIENTIA."
       footer={
         <>
           Déjà inscrit ? <AuthLink href="/connexion">Se connecter</AuthLink>

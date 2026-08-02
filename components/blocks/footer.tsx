@@ -58,13 +58,25 @@ export async function Footer() {
         <div>
           <h3 className="font-display text-lg font-bold mb-5">Contacts</h3>
           <ul className="space-y-4 text-white/80">
-            <li className="flex items-start gap-3">
-              <MapPin className="h-5 w-5 text-gold shrink-0 mt-0.5" />
-              <span className="flex flex-col gap-0.5">
-                {identity.addresses.map((a) => (
-                  <span key={a}>{a}</span>
-                ))}
-              </span>
+            <li className="space-y-2">
+              <a
+                href="https://maps.app.goo.gl/cTUotf2XcVus2GK49"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-start gap-3 hover:text-gold transition-colors text-white/80"
+              >
+                <MapPin className="h-5 w-5 text-gold shrink-0 mt-0.5" />
+                <span>Porto-Novo, Bénin</span>
+              </a>
+              <a
+                href="https://maps.app.goo.gl/SXJDKa6nG87xS9oN6"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-start gap-3 hover:text-gold transition-colors text-white/80"
+              >
+                <MapPin className="h-5 w-5 text-gold shrink-0 mt-0.5" />
+                <span>Parakou, Bénin</span>
+              </a>
             </li>
             <li className="flex items-start gap-3">
               <Phone className="h-5 w-5 text-gold shrink-0 mt-0.5" />
@@ -118,7 +130,7 @@ export async function Footer() {
       {/* Barre inférieure */}
       <div className="border-t border-white/10">
         <div className="container-site py-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-sm text-white/60">
-          <p>© {new Date().getFullYear()} EFES « SAPIENTIA ». Tous droits réservés.</p>
+          <p>© {new Date().getFullYear()} EFES-SAPIENTIA. Tous droits réservés.</p>
           <p className="flex items-center gap-2">
             <Send className="h-3.5 w-3.5 text-gold" />
             Mention légales · Politique de confidentialité

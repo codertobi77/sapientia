@@ -12,7 +12,8 @@ insert into public.formations (slug, titre, description, objectifs, debouches, c
   ('technologie', 'Technologie', 'Une formation transversale dédiée à l''ingénierie pédagogique et aux technologies éducatives.', 'Intégrer les technologies dans l''enseignement et concevoir des dispositifs d''apprentissage.', 'Enseignant de technologie, concepteur pédagogique, médiateur numérique.', 'Baccalauréat ou équivalent ; dossier de candidature.', 'Inscription en ligne, pièce d''identité, relevés de notes.', 'PRESENTIEL', 'cpu', 6),
   ('histoire', 'Histoire', 'Étude critique des sociétés et des civilisations, de l''Antiquité à nos jours, avec un focus sur l''Afrique.', 'Former à l''analyse historique et à la didactique de l''histoire.', 'Enseignant d''histoire, archiviste, guide culturel, chercheur.', 'Baccalauréat ; dossier de candidature.', 'Inscription en ligne, pièce d''identité, relevés de notes.', 'LES_DEUX', 'landmark', 7),
   ('geographie', 'Géographie', 'Comprendre les territoires, les milieux et les sociétés, au Bénin et dans la sous-région.', 'Maîtriser les enjeux spatiaux et leur enseignement.', 'Enseignant de géographie, cartographe, urbaniste, animateur territorial.', 'Baccalauréat ; dossier de candidature.', 'Inscription en ligne, pièce d''identité, relevés de notes.', 'LES_DEUX', 'globe', 8),
-  ('sciences-de-la-vie-et-de-la-terre', 'Sciences de la Vie et de la Terre (SVT)', 'Biologie, géologie et environnement au service de l''enseignement scientifique.', 'Observer, comprendre et enseigner le vivant et la Terre.', 'Enseignant de SVT, technicien en environnement, animateur scientifique.', 'Baccalauréat scientifique ; dossier de candidature.', 'Inscription en ligne, pièce d''identité, relevés de notes.', 'LES_DEUX', 'leaf', 9)
+  ('sciences-de-la-vie-et-de-la-terre', 'Sciences de la Vie et de la Terre (SVT)', 'Biologie, géologie et environnement au service de l''enseignement scientifique.', 'Observer, comprendre et enseigner le vivant et la Terre.', 'Enseignant de SVT, technicien en environnement, animateur scientifique.', 'Baccalauréat scientifique ; dossier de candidature.', 'Inscription en ligne, pièce d''identité, relevés de notes.', 'LES_DEUX', 'leaf', 9),
+  ('eps', 'Éducation Physique et Sportive (EPS)', 'Formation en sciences et techniques des activités physiques et sportives, ouverte à l''enseignement et à l''encadrement sportif.', 'Former des enseignants d''EPS compétents, capables de promouvoir la santé et le développement physique des apprenants.', 'Enseignant d''EPS, entraîneur sportif, éducateur physique, animateur sportif.', 'Baccalauréat ou équivalent ; aptitude physique requise ; dossier de candidature.', 'Inscription en ligne, pièce d''identité, certificat médical, relevés de notes.', 'LES_DEUX', 'dumbbell', 10)
 on conflict (slug) do nothing;
 
 -- Campus (Porto-Novo, Parakou, Savè, Abomey-Calavi).
@@ -27,7 +28,7 @@ on conflict (id) do nothing;
 
 -- Partenaires institutionnels
 insert into public.partenaires (nom, ordre) values
-  ('UNESCO', 1), ('CAMES', 2), ('AUF', 3), ('Ministère de l''Enseignement Supérieur', 4), ('Ambassade de France', 5)
+  ('UNESCO', 1), ('CAMES', 2), ('AUF', 3), ('Ministère de l''Enseignement Supérieur', 4), ('Ambassade de France', 5), ('Laha Editions', 6)
 on conflict (id) do nothing;
 
 -- Témoignages

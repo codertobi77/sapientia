@@ -4,7 +4,7 @@ import { ResetForm } from "@/components/blocks/auth/reset-form";
 
 export const metadata: Metadata = {
   title: "Récupération de mot de passe",
-  description: "Réinitialisez le mot de passe de votre compte étudiant EFES « SAPIENTIA ».",
+  description: "Réinitialisez le mot de passe de votre compte étudiant EFES-SAPIENTIA.",
 };
 
 export default function RecuperationPage() {

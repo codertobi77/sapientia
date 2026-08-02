@@ -17,7 +17,7 @@ import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 
 export const metadata: Metadata = {
-  title: "Formation à distance (E-learning) — EFES « SAPIENTIA »",
+  title: "Formation à distance (E-learning) — EFES-SAPIENTIA",
   description:
     "Une expérience d'apprentissage complète en ligne : cours vidéo, visioconférences, exercices interactifs, examens en ligne et certifications reconnues.",
 };

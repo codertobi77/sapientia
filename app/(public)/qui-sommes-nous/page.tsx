@@ -6,15 +6,15 @@ import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 
 export const metadata: Metadata = {
-  title: "Qui sommes-nous — EFES « SAPIENTIA »",
+  title: "Qui sommes-nous — EFES-SAPIENTIA",
   description:
-    "EFES « SAPIENTIA », établissement privé de formation des enseignants au Bénin. 17 membres fondateurs, 9 filières, 4 campus, une pédagogie innovante et accessible.",
+    "EFES-SAPIENTIA, établissement privé de formation des enseignants au Bénin. 17 membres fondateurs, 10 filières, 2 campus, une pédagogie innovante et accessible.",
 };
 
 const stats = [
   { value: "17+", label: "Membres fondateurs", icon: Users },
-  { value: "9", label: "Filières enseignées", icon: GraduationCap },
-  { value: "4", label: "Campus au Bénin", icon: Landmark },
+  { value: "10", label: "Filières enseignées", icon: GraduationCap },
+  { value: "2", label: "Campus au Bénin", icon: Landmark },
   { value: "1500+", label: "Étudiants formés", icon: BookOpen },
   { value: "98%", label: "Taux de réussite", icon: Award },
 ];
@@ -37,7 +37,7 @@ export default function QuiSommesNousPage() {
             Un établissement né d'une <span className="text-gold">ambition pédagogique</span>.
           </>
         }
-        description="L'EFES « SAPIENTIA » réunit des enseignants engagés pour former la nouvelle génération d'éducateurs au Bénin, sur 4 campus et via une plateforme e-learning."
+        description="EFES-SAPIENTIA réunit des enseignants engagés pour former la nouvelle génération d'éducateurs au Bénin, sur 2 campus et via une plateforme e-learning."
         imageSrc="/images/1785609397909.jpg"
       />
 
@@ -54,11 +54,11 @@ export default function QuiSommesNousPage() {
             <div className="mt-6 space-y-4 text-slate text-lg leading-relaxed">
               <p>
                 Créée par des pédagogues et des universitaires convaincus que l'éducation est le
-                levier du développement, l'EFES « SAPIENTIA » conjugue exigence académique et
+                levier du développement, EFES-SAPIENTIA conjugue exigence académique et
                 accessibilité.
               </p>
               <p>
-                Nous proposons neuf filières disciplinaires, sur quatre campus et en ligne, pour
+                Nous proposons dix filières disciplinaires, sur deux campus et en ligne, pour
                 préparer les enseignants de demain à transmettre un savoir solide et critique.
               </p>
             </div>
@@ -101,7 +101,7 @@ export default function QuiSommesNousPage() {
             <div className="text-center px-8 py-16">
               <GraduationCap className="h-16 w-16 text-gold mx-auto mb-4" />
               <p className="font-display text-2xl font-bold text-white">Des campus modernes et accueillants</p>
-              <p className="text-white/70 mt-2">Porto-Novo · Parakou · Savè · Abomey-Calavi</p>
+              <p className="text-white/70 mt-2">Porto-Novo · Parakou</p>
             </div>
             <Badge variant="gold" className="absolute top-6 left-6">
               <Award className="h-3.5 w-3.5" />
@@ -193,7 +193,7 @@ export default function QuiSommesNousPage() {
             light
             eyebrow="Nos valeurs"
             title="Cinq piliers fondateurs"
-            description="Les principes qui structurent la vie académique et humaine de l'EFES « SAPIENTIA »."
+            description="Les principes qui structurent la vie académique et humaine d'EFES-SAPIENTIA."
           />
           <div className="mt-14 grid sm:grid-cols-2 lg:grid-cols-5 gap-6">
             {piliers.map(({ titre, description, icon: Icon }) => (

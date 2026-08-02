@@ -5,9 +5,9 @@ import { Section } from "@/components/blocks/section";
 import { ActualitesList } from "@/components/blocks/actualites-list";
 
 export const metadata: Metadata = {
-  title: "Actualités — EFES « SAPIENTIA »",
+  title: "Actualités — EFES-SAPIENTIA",
   description:
-    "Événements, séminaires, concours, partenariats et nouveautés de l'EFES « SAPIENTIA ».",
+    "Événements, séminaires, concours, partenariats et nouveautés de l'EFES-SAPIENTIA.",
 };
 
 export default async function ActualitesPage() {
@@ -23,7 +23,7 @@ export default async function ActualitesPage() {
             Nos <span className="text-gold">actualités</span>
           </>
         }
-        description="Suivez la vie académique, les événements et les partenariats de l'EFES « SAPIENTIA »."
+        description="Suivez la vie académique, les événements et les partenariats de l'EFES-SAPIENTIA."
         imageSrc="/images/1785609503889.jpg"
       />
       <Section>

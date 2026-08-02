@@ -17,9 +17,9 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params;
   const a = await getActualite(slug);
-  if (!a) return { title: "Actualité introuvable — EFES « SAPIENTIA »" };
+  if (!a) return { title: "Actualité introuvable — EFES-SAPIENTIA" };
   return {
-    title: `${a.titre} — EFES « SAPIENTIA »`,
+    title: `${a.titre} — EFES-SAPIENTIA`,
     description: a.extrait ?? a.titre,
   };
 }

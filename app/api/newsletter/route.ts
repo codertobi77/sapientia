@@ -34,12 +34,12 @@ export async function POST(request: Request) {
   await Promise.all([
     sendMail({
       to: parsed.data.email,
-      subject: "Bienvenue dans la newsletter EFES « SAPIENTIA »",
+      subject: "Bienvenue dans la newsletter EFES-SAPIENTIA",
       html: confirmationEmail(
         "",  // Pas de nom collecté pour la newsletter
-        `<p>Merci de votre inscription à la newsletter de l'EFES « SAPIENTIA ».</p>
+        `<p>Merci de votre inscription à la newsletter de l'EFES-SAPIENTIA.</p>
         <p>Vous recevrez désormais nos actualités, nos événements et nos offres de formation directement dans votre boîte mail.</p>
-        <p style="color:#64748b">À très vite,<br/>L'équipe EFES « SAPIENTIA »</p>`,
+        <p style="color:#64748b">À très vite,<br/>L'équipe EFES-SAPIENTIA</p>`,
       ),
     }),
     notifyAdmin(

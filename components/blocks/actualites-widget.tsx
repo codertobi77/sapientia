@@ -21,7 +21,7 @@ export function ActualitesWidget({ actualites }: { actualites: Actualite[] }) {
             align="left"
             eyebrow="Actualités"
             title="Les dernières actualités"
-            description="Événements, séminaires, partenariats et nouveautés de l'EFES « SAPIENTIA »."
+            description="Événements, séminaires, partenariats et nouveautés de l'EFES-SAPIENTIA."
           />
           <Link
             href="/actualites"

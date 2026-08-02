@@ -39,7 +39,7 @@ export async function POST(request: Request) {
   await Promise.all([
     sendMail({
       to: parsed.data.email,
-      subject: "Confirmation de votre demande de devis — EFES « SAPIENTIA »",
+      subject: "Confirmation de votre demande de devis — EFES-SAPIENTIA",
       html: confirmationEmail(
         parsed.data.nom,
         `<p>Nous confirmons la bonne réception de votre demande de devis.</p>
