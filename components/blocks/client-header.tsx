@@ -63,12 +63,20 @@ export function ClientHeader({
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [dropOpen, setDropOpen] = useState(false);
+  const [activeMobileItem, setActiveMobileItem] = useState(0);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setActiveMobileItem((prev) => (prev + 1) % 3);
+    }, 3000);
+    return () => clearInterval(interval);
   }, []);
 
   useEffect(() => {
@@ -95,38 +103,117 @@ export function ClientHeader({
         )}
       >
         <div className="container-site flex h-9 items-center justify-between gap-3">
-          {/* Sur petits/moyens écrans on priorise les contacts téléphoniques
-              sur une seule ligne (tronqués si nécessaire). L'identité et
-              l'email restent réservés aux écrans larges (lg+). */}
-          <p className="hidden lg:block truncate shrink min-w-0">
-            {identity.name} — {identity.subtitle}
-          </p>
-          <div className="flex items-center gap-4 ml-auto min-w-0">
-            <a
-              href={`mailto:${identity.email}`}
-              className="hidden lg:inline-flex items-center gap-1.5 hover:text-gold transition-colors shrink-0"
-            >
-              <Mail className="h-3.5 w-3.5" />
-              <span className="truncate">{identity.email}</span>
-            </a>
-            <span className="inline-flex items-center gap-1.5 min-w-0 shrink">
-              <Phone className="h-3.5 w-3.5 shrink-0" aria-hidden />
-              {/* Une seule ligne : on n'enroule pas, on tronque avec ellipsis. */}
-              <span className="inline-flex items-center gap-x-1 whitespace-nowrap overflow-hidden min-w-0">
-                {identity.phones.map((p, i) => (
-                  <span key={p} className="inline-flex items-center gap-x-1 min-w-0">
-                    {i > 0 && <span aria-hidden className="text-white/40">·</span>}
-                    <a
-                      href={telHref(p)}
-                      className="hover:text-gold transition-colors truncate"
-                    >
-                      {p}
-                    </a>
-                  </span>
-                ))}
+          {/* Desktop View */}
+          <div className="hidden lg:flex items-center justify-between w-full">
+            <p className="truncate shrink min-w-0">
+              {identity.name} — {identity.subtitle}
+            </p>
+            <div className="flex items-center gap-4 ml-auto min-w-0">
+              <a
+                href={`mailto:${identity.email}`}
+                className="inline-flex items-center gap-1.5 hover:text-gold transition-colors shrink-0"
+              >
+                <Mail className="h-3.5 w-3.5" />
+                <span className="truncate">{identity.email}</span>
+              </a>
+              <span className="inline-flex items-center gap-1.5 min-w-0 shrink">
+                <Phone className="h-3.5 w-3.5 shrink-0" aria-hidden />
+                <span className="inline-flex items-center gap-x-1 whitespace-nowrap overflow-hidden min-w-0">
+                  {identity.phones.map((p, i) => (
+                    <span key={p} className="inline-flex items-center gap-x-1 min-w-0">
+                      {i > 0 && <span aria-hidden className="text-white/40">·</span>}
+                      <a
+                        href={telHref(p)}
+                        className="hover:text-gold transition-colors truncate"
+                      >
+                        {p}
+                      </a>
+                    </span>
+                  ))}
+                </span>
               </span>
-            </span>
-            <div className="flex items-center gap-2.5">
+              <div className="flex items-center gap-2.5">
+                {socialLinks.map(({ href, key, label }) => {
+                  const Icon = SOCIAL_ICONS[key];
+                  return (
+                    <a
+                      key={label}
+                      href={href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={label}
+                      className="hover:text-gold transition-colors"
+                    >
+                      <Icon className="h-4 w-4" />
+                    </a>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+
+          {/* Mobile View (Carousel) */}
+          <div className="flex lg:hidden items-center justify-between w-full h-full relative">
+            <div className="flex-1 relative h-full overflow-hidden">
+              {/* Item 0: Name & Subtitle */}
+              <div
+                className={cn(
+                  "absolute inset-0 flex items-center transition-all duration-500",
+                  activeMobileItem === 0
+                    ? "opacity-100 translate-y-0"
+                    : "opacity-0 -translate-y-4 pointer-events-none"
+                )}
+              >
+                <p className="truncate text-xs font-medium">
+                  {identity.name} — {identity.subtitle}
+                </p>
+              </div>
+
+              {/* Item 1: Email */}
+              <div
+                className={cn(
+                  "absolute inset-0 flex items-center transition-all duration-500",
+                  activeMobileItem === 1
+                    ? "opacity-100 translate-y-0"
+                    : "opacity-0 -translate-y-4 pointer-events-none"
+                )}
+              >
+                <a
+                  href={`mailto:${identity.email}`}
+                  className="inline-flex items-center gap-1.5 hover:text-gold transition-colors truncate text-xs font-medium"
+                >
+                  <Mail className="h-3.5 w-3.5 shrink-0" />
+                  <span className="truncate">{identity.email}</span>
+                </a>
+              </div>
+
+              {/* Item 2: Phones */}
+              <div
+                className={cn(
+                  "absolute inset-0 flex items-center transition-all duration-500",
+                  activeMobileItem === 2
+                    ? "opacity-100 translate-y-0"
+                    : "opacity-0 -translate-y-4 pointer-events-none"
+                )}
+              >
+                <span className="inline-flex items-center gap-1.5 truncate text-xs font-medium">
+                  <Phone className="h-3.5 w-3.5 shrink-0" aria-hidden />
+                  <span className="inline-flex items-center gap-x-1 whitespace-nowrap overflow-hidden">
+                    {identity.phones.map((p, i) => (
+                      <span key={p} className="inline-flex items-center gap-x-1">
+                        {i > 0 && <span aria-hidden className="text-white/40">·</span>}
+                        <a href={telHref(p)} className="hover:text-gold transition-colors">
+                          {p}
+                        </a>
+                      </span>
+                    ))}
+                  </span>
+                </span>
+              </div>
+            </div>
+
+            {/* Social Links (Always visible on the right) */}
+            <div className="flex items-center gap-2.5 shrink-0 pl-3 ml-2 border-l border-white/20 h-5">
               {socialLinks.map(({ href, key, label }) => {
                 const Icon = SOCIAL_ICONS[key];
                 return (
@@ -138,7 +225,7 @@ export function ClientHeader({
                     aria-label={label}
                     className="hover:text-gold transition-colors"
                   >
-                    <Icon className="h-4 w-4" />
+                    <Icon className="h-3.5 w-3.5" />
                   </a>
                 );
               })}
